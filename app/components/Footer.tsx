@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="max-w-full mx-auto flex flex-col md:flex-row justify-between gap-12">
         {/* Left Column */}
         <div>
-          <Image src="/logo-atlassian.png" alt="Logo" width={32} height={32} />
+          <Image src="/images/logo.svg" alt="Logo" width={32} height={32} />
           <ul className="mt-6 space-y-2 text-sm font-medium">
             <li>Company</li>
             <li>Careers</li>

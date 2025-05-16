@@ -1,7 +1,9 @@
+
 import Image from 'next/image';
 
 const IncidentSection = () => {
   return (
+
     <section className="relative bg-blue-700 text-white py-16 px-6">
       {/* Top Wave */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">

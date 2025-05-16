@@ -33,7 +33,7 @@ const Features = () => {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/features1.png"
+              src="/images/core-features-3..png"
               alt="Core Features"
               width={500}
               height={300}
@@ -46,7 +46,7 @@ const Features = () => {
         <section className="grid md:grid-cols-2 gap-16 items-center mb-20">
           <div className="flex justify-center order-2 md:order-1">
             <Image
-              src="/features2.png"
+              src="/images/notifications.png"
               alt="Notifications"
               width={500}
               height={300}
@@ -74,7 +74,7 @@ const Features = () => {
           </div>
           <div className="flex justify-center">
             <Image
-              src="/uptime.png"
+              src="/images/uptime-performance.png"
               alt="Uptime and Performance"
               width={500}
               height={300}
@@ -87,7 +87,7 @@ const Features = () => {
         <section className="grid md:grid-cols-2 gap-16 items-center mb-20">
           <div className="flex justify-center">
             <Image
-              src="/customize.png"
+              src="/images/customization.png"
               alt="Customization"
               width={500}
               height={300}

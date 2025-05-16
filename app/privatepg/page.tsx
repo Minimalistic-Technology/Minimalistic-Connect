@@ -32,7 +32,7 @@ const pvt = () => {
           {/* Right Image */}
           <div className="flex justify-center">
             <Image
-              src="/images/private-pages.png" // Make sure this file exists in your public/images folder
+              src="/images/private-1.png" // Make sure this file exists in your public/images folder
               alt="Private Pages Status"
               width={600}
               height={400}
@@ -51,7 +51,7 @@ const pvt = () => {
           {/* Left Image */}
           <div className="flex justify-center">
             <Image
-              src="/images/feature1.png" // Replace with actual file
+              src="/images/private-2.png" // Replace with actual file
               alt="Status Update"
               width={500}
               height={350}
@@ -92,7 +92,7 @@ const pvt = () => {
           {/* Right Image */}
           <div className="flex justify-center">
             <Image
-              src="/images/feature2.png" // Replace with actual file
+              src="/images/status_chatops.png" // Replace with actual file
               alt="Website Updates"
               width={500}
               height={350}

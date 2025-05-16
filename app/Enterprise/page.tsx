@@ -22,7 +22,7 @@ const Enterprise = () => {
           </p>
         </div>
         <div className="flex justify-center">
-          <Image src="/images/toolset.png" alt="Toolset Logos" width={800} height={400} className="w-full max-w-4xl h-auto" />
+          <Image src="/images/integrations-hero-updates-2-rows-desktop@2x.png" alt="Toolset Logos" width={800} height={400} className="w-full max-w-4xl h-auto" />
         </div>
       </section>
 
@@ -63,7 +63,7 @@ const Enterprise = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <Image src="/images/integration.png" alt="Integration Illustration" width={800} height={400} className="w-full h-auto" />
+            <Image src="/images/sp-illo-v2@2x.svg" alt="Integration Illustration" width={800} height={400} className="w-full h-auto" />
           </motion.div>
         </div>
       </section>
@@ -75,7 +75,7 @@ const Enterprise = () => {
         </h2>
         <div className="flex flex-col md:flex-row justify-center items-center gap-8 max-w-6xl mx-auto mt-12">
           <div>
-            <Image src="/images/status-display.png" alt="Status Embed" width={400} height={300} className="rounded-xl" />
+            <Image src="/images/status_alert 2.gif" alt="Status Embed" width={400} height={300} className="rounded-xl" />
           </div>
           <div className="text-left max-w-md">
             <h3 className="text-lg font-bold mb-2">Support tool integrations</h3>
@@ -95,7 +95,7 @@ const Enterprise = () => {
           Connect Slack or Microsoft Teams to stay in sync during incident response
         </h2>
         <div className="flex justify-center mt-10">
-          <Image src="/images/chatops.png" alt="ChatOps Integration" width={500} height={300} className="h-auto" />
+          <Image src="/images/teams-slack-integration.svg" alt="ChatOps Integration" width={500} height={300} className="h-auto" />
         </div>
       </section>
 
@@ -104,7 +104,7 @@ const Enterprise = () => {
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Showcase your uptime</h2>
         <div className="flex flex-col md:flex-row justify-center items-center gap-12 mt-10">
           <div>
-            <Image src="/images/uptime-metrics.png" alt="Uptime Metrics" width={500} height={300} className="rounded-xl" />
+            <Image src="/images/statuspage-graph@4x.png" alt="Uptime Metrics" width={500} height={300} className="rounded-xl" />
           </div>
           <div className="text-left max-w-md">
             <h3 className="text-lg font-bold mb-2">Display system metrics to build customer trust</h3>

@@ -6,10 +6,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: "Features", href: "/main" },
-    { name: "Page types", href: "/features" },
+    { name: "Features", href: "/features" },
+    { name: "Page types", href: "/Publicpage" },
     { name: "Pricing", href: "/pricing" },
-    { name: "Enterprise", href: "/enterprise" },
+    { name: "Enterprise", href: "/Enterprise" },
   ];
 
   return (
@@ -65,7 +65,7 @@ export default function Header() {
               />
             </svg>
           </button>
-          <a href="#" className="text-white font-semibold text-sm">
+          <a href="/signin" className="text-white font-semibold text-sm">
             Sign in
           </a>
         </div>

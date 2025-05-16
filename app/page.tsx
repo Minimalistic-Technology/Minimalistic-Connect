@@ -11,7 +11,7 @@ const HomePage = () => {
     <div>
       <Header />
       {/* Hero Section */}
-      <section className="bg-gray-900 text-white mt-16 px-8 md:px-20 flex items-center justify-center">
+      <section className="bg-gray-900 text-white py-16 px-8 md:px-20 flex items-center justify-center">
         <div className="max-w-3xl text-center">
           <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
             Build trust with every <span className="text-blue-400">incident</span>

@@ -32,7 +32,7 @@ const audience = () => {
 
         <div className="flex justify-center">
           <Image
-            src="/images/audience-illustration-1.png" // Replace with your image
+            src="/images/audience-specific-illustration.svg"
             alt="Audience specific view"
             width={500}
             height={400}
@@ -45,7 +45,7 @@ const audience = () => {
       <div className="max-w-7xl mx-auto mt-20 grid md:grid-cols-2 gap-16 items-center px-4">
         <div className="flex justify-center">
           <Image
-            src="/images/audience-illustration-2.png" // Replace with your image
+            src="/images/Meeples Mobile All@2x.svg" 
             alt="Access by user group"
             width={400}
             height={300}
@@ -84,7 +84,7 @@ const audience = () => {
 
         <div className="flex justify-center">
           <Image
-            src="/images/audience-illustration-3.png" // Replace with your image
+            src="/images/scale to meet your needs (1).svg"
             alt="Pricing for scale"
             width={400}
             height={300}

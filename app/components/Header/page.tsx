@@ -21,11 +21,11 @@ export default function Header() {
 
       {/* Header Content */}
       <header className="flex-1 bg-gray-900 text-white flex items-center justify-between px-6">
-        {/* Logo and Name */}
-        <div className="flex items-center gap-2">
+        {/* Logo and Name with Link to Homepage */}
+        <Link href="/" className="flex items-center gap-2">
           <div className="w-4 h-4 bg-blue-500 rounded-full" />
           <span className="text-xl font-semibold">Statuspage</span>
-        </div>
+        </Link>
 
         {/* Nav Links */}
         <nav className="hidden md:flex gap-8 text-sm font-medium">

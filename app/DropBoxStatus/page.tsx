@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Enterprise from './../Enterprise/page';
 
 export default function Home() {
   // Function to calculate the date for each bar (90 days ago to today)
@@ -265,24 +266,48 @@ export default function Home() {
           <div className="w-full border-t border-gray-600 mb-8"></div>
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-wrap justify-between">
-              {/* Logo and Title */}
-              <div className="mb-8">
-                <div className="flex items-center mb-4">
-                  <Image
-                    src="/images/Dropbox.svg"
-                    alt="Dropbox Logo"
-                    width={40}
-                    height={40}
-                    className="mr-2"
-                  />
-                  <span className="text-white text-xl font-semibold">Dropbox</span>
-                </div>
-              </div>
+              
 
               {/* Product Links */}
               <div className="mb-8">
-                <h3 className="text-white font-semibold mb-4">Product</h3>
+                <h3 className="text-white font-semibold mb-4">Dropbox</h3>
                 <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Plus
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Business
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Enterprise
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Dash
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Plans
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+                <div className="mb-8">
+                <h3 className="text-white font-semibold mb-4">Using Dropbox</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Help Center
+                    </a>
+                  </li>
                   <li>
                     <a href="#" className="text-gray-400 hover:underline">
                       Security
@@ -290,12 +315,12 @@ export default function Home() {
                   </li>
                   <li>
                     <a href="#" className="text-gray-400 hover:underline">
-                      Features
+                      Productivity
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-400 hover:underline">
-                      Pricing
+                      Integrations
                     </a>
                   </li>
                 </ul>
@@ -312,12 +337,12 @@ export default function Home() {
                   </li>
                   <li>
                     <a href="#" className="text-gray-400 hover:underline">
-                      Jobs
+                      Contact Support
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-400 hover:underline">
-                      Investor Relations
+                      Blog
                     </a>
                   </li>
                 </ul>
@@ -325,66 +350,39 @@ export default function Home() {
 
               {/* Support Links */}
               <div className="mb-8">
-                <h3 className="text-white font-semibold mb-4">Support</h3>
+                <h3 className="text-white font-semibold mb-4">Downloads</h3>
                 <ul className="space-y-2">
                   <li>
                     <a href="#" className="text-gray-400 hover:underline">
-                      Help Center
+                      Desktop App
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-400 hover:underline">
-                      Contact Us
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="text-gray-400 hover:underline">
-                      Community
+                      Mobile apps
                     </a>
                   </li>
                 </ul>
               </div>
 
-              {/* Follow Us */}
               <div className="mb-8">
-                <h3 className="text-white font-semibold mb-4">Follow Us</h3>
-                <div className="flex space-x-4">
-                  <a href="#" className="text-gray-400 hover:text-white">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-white">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.5c-.97 0-1.75-.78-1.75-1.75s.78-1.75 1.75-1.75 1.75.78 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.5h-3v-5.5c0-1.38-1.12-2.5-2.5-2.5s-2.5 1.12-2.5 2.5v5.5h-3v-11h3v1.47c1.24-1.02 3.01-1.47 4.5-1.47 3.31 0 5.5 2.69 5.5 6v5.5z" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-white">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-1 19h-3v-7c0-1.66-1.34-3-3-3s-3 1.34-3 3v7h-3v-14h3v1.54c1.24-1.02 3.01-1.54 4.5-1.54 3.31 0 5.5 2.69 5.5 6v8z" />
-                    </svg>
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-white">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                    </svg>
-                  </a>
-                </div>
+                <h3 className="text-white font-semibold mb-4">Legal</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Privacy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-400 hover:underline">
+                      Terms
+                    </a>
+                  </li>
+                </ul>
               </div>
+
             </div>
 
-            {/* Bottom Links and Copyright */}
-            <div className="flex justify-between items-center mt-8">
-              <div className="space-x-4">
-                <a href="#" className="text-gray-400 text-sm hover:underline">
-                  Privacy & terms
-                </a>
-                <a href="#" className="text-gray-400 text-sm hover:underline">
-                  Manage Cookies
-                </a>
-              </div>
-              <p className="text-gray-400 text-sm">© 2025 Dropbox</p>
-            </div>
           </div>
         </footer>
       </div>

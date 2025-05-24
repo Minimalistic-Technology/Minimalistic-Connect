@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"; // Import useRouter for navigation
 import Footer from "./components/Footer";
 import Pricing from "./components/Pricing";
 import Private from "./components/Private"; // Import the Private.tsx component
-// import AudienceSpecificPage from "./components/AudienceSpecificPage"; // Import the AudienceSpecificPage.tsx component
+import AudienceSpecificPage from "./components/AudienceSpecificPage"; // Import the AudienceSpecificPage.tsx component
 
 const HomePage = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -29,8 +29,8 @@ const HomePage = () => {
     <div>
       {/* Video Modal */}
       {isVideoOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-          <div className="relative bg-gray-900 rounded-lg p-4 max-w-3xl w-full">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 px-4">
+          <div className="relative bg-gray-900 rounded-lg p-4 w-full max-w-3xl">
             {/* Close Button */}
             <button
               onClick={closeVideo}
@@ -54,10 +54,10 @@ const HomePage = () => {
       )}
 
       {/* Header */}
-      <header className="bg-gray-900 text-white py-4 px-6 md:px-12">
+      <header className="bg-gray-900 text-white py-4 px-4 sm:px-6 md:px-12">
         <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
           {/* Logo */}
-          <div className="text-2xl font-bold">
+          <div className="text-xl sm:text-2xl font-bold">
             <a href="/" className="text-white hover:text-blue-400 transition">
               Statuspage
             </a>
@@ -65,12 +65,12 @@ const HomePage = () => {
 
           {/* Navigation Links */}
           <nav className="flex-1 flex justify-center">
-            <ul className="flex space-x-8">
+            <ul className="flex flex-wrap justify-center space-x-4 sm:space-x-8">
               {["Product", "Solutions", "Pricing", "Resources", "Support"].map((item, idx) => (
                 <li key={idx}>
                   <a
                     href="#"
-                    className="text-gray-300 hover:text-white transition text-sm md:text-base font-medium"
+                    className="text-gray-300 hover:text-white transition text-sm sm:text-base font-medium"
                   >
                     {item}
                   </a>
@@ -83,13 +83,13 @@ const HomePage = () => {
           <div className="flex space-x-4">
             <a
               href="#"
-              className="text-gray-300 hover:text-white transition text-sm md:text-base font-medium"
+              className="bg-blue-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded hover:bg-blue-700 transition text-sm sm:text-base font-medium"
             >
               Log in
             </a>
             <a
               href="#"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm md:text-base font-medium"
+              className="bg-blue-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded hover:bg-blue-700 transition text-sm sm:text-base font-medium"
             >
               Sign up
             </a>
@@ -98,16 +98,16 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gray-900 text-white py-16 px-8 md:px-20 flex items-center justify-center">
+      <section className="bg-gray-900 text-white py-12 px-4 sm:px-8 md:px-20 flex items-center justify-center">
         <div className="max-w-3xl text-center">
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             Build trust with every <span className="text-blue-400">incident</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-400 mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-8">
             Easily communicate real-time status to your users, just like DigitalOcean and Dropbox.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
+            <button className="bg-blue-500 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold hover:bg-blue-600 transition">
               Get it free
             </button>
             <button className="text-blue-400 font-medium group">
@@ -136,8 +136,8 @@ const HomePage = () => {
       </section>
 
       {/* Trusted By Section */}
-      <section className="bg-gray-900 text-white py-20 px-6 md:px-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-items-center">
+      <section className="bg-gray-900 text-white py-12 px-4 sm:px-6 md:px-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 justify-items-center">
           {/* DigitalOcean Card */}
           <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg p-4 w-full max-w-md relative group">
             <div className="relative">
@@ -146,7 +146,7 @@ const HomePage = () => {
                 alt="DigitalOcean status"
                 width={600}
                 height={400}
-                className="rounded w-full h-auto"
+                className="rounded w-full h-auto object-cover"
               />
               <div
                 className="absolute inset-0 flex items-center justify-center bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -154,13 +154,13 @@ const HomePage = () => {
               >
                 <button
                   onClick={handleViewStatuspage} // Add onClick handler for navigation
-                  className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold cursor-pointer"
+                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer"
                 >
                   View statuspage
                 </button>
               </div>
             </div>
-            <p className="text-center mt-4 text-gray-400 font-semibold">DigitalOcean</p>
+            <p className="text-center mt-4 text-gray-400 font-semibold text-sm sm:text-base">DigitalOcean</p>
           </div>
 
           {/* Dropbox Card */}
@@ -171,20 +171,21 @@ const HomePage = () => {
                 alt="Dropbox status"
                 width={600}
                 height={400}
-                className="rounded w-full h-auto"
+                className="rounded w-full h-auto object-cover"
               />
               <div
                 className="absolute inset-0 flex items-center justify-center bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: "#f7f7f2" }}
               >
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold"
-                onClick={handleViewStatuspage1}
+                <button 
+                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer"
+                  onClick={handleViewStatuspage1}
                 >  
                   View statuspage
                 </button>
               </div>
             </div>
-            <p className="text-center mt-4 text-gray-400 font-semibold">Dropbox</p>
+            <p className="text-center mt-4 text-gray-400 font-semibold text-sm sm:text-base">Dropbox</p>
           </div>
         </div>
       </section>
@@ -193,18 +194,18 @@ const HomePage = () => {
         {/* Top shadow line */}
         <div className="h-2 w-full shadow-md bg-gray-900" />
 
-        <div className="max-w-7xl mx-auto py-20 px-6 md:px-12 space-y-24">
+        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:px-12 space-y-16 sm:space-y-24">
           {/* Block 1 */}
-          <div className="flex flex-col-reverse md:flex-row items-center gap-12">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-8 sm:gap-12">
             {/* Text */}
             <div className="md:w-1/2">
-              <h5 className="text-sm uppercase text-blue-300 font-semibold mb-2">
+              <h5 className="text-xs sm:text-sm uppercase text-blue-300 font-semibold mb-2">
                 Support & IT Teams
               </h5>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
                 Eliminate duplicate support tickets & clunky email lists
               </h2>
-              <p className="text-gray-300">
+              <p className="text-gray-300 text-sm sm:text-base">
                 Halt the flood of support requests during an incident with proactive customer communication. Manage subscribers
                 directly in Statuspage and send consistent messages through the channels of your choice (email, text message,
                 in-app message, etc.)
@@ -218,13 +219,13 @@ const HomePage = () => {
                 alt="Support feature"
                 width={500}
                 height={400}
-                className="mx-auto"
+                className="mx-auto w-full h-auto object-contain"
               />
             </div>
           </div>
 
           {/* Block 2 */}
-          <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-12">
             {/* Image */}
             <div className="md:w-1/2">
               <Image
@@ -232,19 +233,19 @@ const HomePage = () => {
                 alt="Service status"
                 width={600}
                 height={400}
-                className="mx-auto"
+                className="mx-auto w-full h-auto object-contain"
               />
             </div>
 
             {/* Text */}
             <div className="md:w-1/2">
-              <h5 className="text-sm uppercase text-blue-300 font-semibold mb-2">
+              <h5 className="text-xs sm:text-sm uppercase text-blue-300 font-semibold mb-2">
                 DevOps & IT Teams
               </h5>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
                 Display the status of each part of your service
               </h2>
-              <p className="text-gray-300">
+              <p className="text-gray-300 text-sm sm:text-base">
                 Control which components of your service you show on your page, and tap into 150+ third party components to display
                 the status of mission-critical tools your service relies on like Stripe, Mailgun, Shopify, and PagerDuty.
               </p>
@@ -255,20 +256,20 @@ const HomePage = () => {
 
       <section className="bg-gray-900 text-gray-300">
         {/* Section 1 */}
-        <div className="bg-gray-900 text-gray-300 shadow-lg lg:shadow-lg">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="bg-gray-900 text-gray-300 shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12">
             {/* Text */}
             <div className="lg:w-1/2">
-              <h2 className="text-3xl font-bold mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
                 Statuspage is the communication piece of your incident management process
               </h2>
-              <p className="text-gray-300 mb-4">
+              <p className="text-gray-300 mb-4 text-sm sm:text-base">
                 Keep users in the loop from ‘investigating’ through ‘resolved’.
               </p>
-              <p className="text-gray-300 mb-4">
+              <p className="text-gray-300 mb-4 text-sm sm:text-base">
                 Statuspage integrates with your favorite monitoring, alerting, chat, and help desk tools for efficient response every time.
               </p>
-              <a href="#" className="text-blue-600 font-medium hover:underline">
+              <a href="#" className="text-blue-600 font-medium hover:underline text-sm sm:text-base">
                 Learn more about integrations and automation →
               </a>
             </div>
@@ -280,24 +281,24 @@ const HomePage = () => {
                 alt="Incident communication"
                 width={400}
                 height={300}
-                className="object-contain"
+                className="object-contain w-full h-auto"
               />
             </div>
           </div>
         </div>
 
         {/* Section 2 */}
-        <div className="bg-gray-900 text-gray-300 shadow-lg lg:shadow-lg mt-6">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+        <div className="bg-gray-900 text-gray-300 shadow-lg mt-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 flex flex-col-reverse lg:flex-row items-center justify-between gap-8 sm:gap-12">
             {/* Text */}
             <div className="lg:w-1/2">
-              <h5 className="text-sm uppercase text-blue-500 font-semibold mb-2">
+              <h5 className="text-xs sm:text-sm uppercase text-blue-500 font-semibold mb-2">
                 Incident Response Teams
               </h5>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
                 Level-up your incident communication
               </h2>
-              <p className="text-gray-300">
+              <p className="text-gray-300 text-sm sm:text-base">
                 Take the hassle out of incident communication. Pre-written templates and tight integrations with the incident
                 management tools you already rely on enable you to quickly get the word out to users.
               </p>
@@ -310,7 +311,7 @@ const HomePage = () => {
                 alt="Incident response graphic"
                 width={450}
                 height={300}
-                className="object-contain"
+                className="object-contain w-full h-auto"
               />
             </div>
           </div>
@@ -319,7 +320,7 @@ const HomePage = () => {
 
       <section className="bg-gray-900 text-gray-300">
         {/* Showcase reliability */}
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col lg:flex-row items-center gap-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center gap-8 sm:gap-10">
           {/* Image */}
           <div className="lg:w-1/2 flex justify-center">
             <Image
@@ -327,43 +328,43 @@ const HomePage = () => {
               alt="Uptime chart"
               width={500}
               height={300}
-              className="object-contain shadow-lg"
+              className="object-contain w-full h-auto shadow-lg"
             />
           </div>
 
           {/* Text */}
           <div className="lg:w-1/2">
-            <h5 className="text-sm uppercase text-blue-500 font-semibold mb-2">
+            <h5 className="text-xs sm:text-sm uppercase text-blue-500 font-semibold mb-2">
               Marketing & Sales Teams
             </h5>
-            <h2 className="text-3xl font-bold mb-4">Showcase reliability</h2>
-            <p className="text-gray-400">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">Showcase reliability</h2>
+            <p className="text-gray-400 text-sm sm:text-base">
               Turn your page into a sales and marketing tool with uptime Showcase, which lets you display historical uptime to current and prospective customers.
             </p>
           </div>
         </div>
 
         {/* Trusted by thousands */}
-        <div className="bg-gray-900 py-16 px-6 md:px-12">
+        <div className="bg-gray-900 py-12 px-4 sm:px-6 md:px-12">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-xl md:text-2xl font-semibold mb-10">Trusted by thousands of companies</h2>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-8 sm:mb-10">Trusted by thousands of companies</h2>
 
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8">
               {/* Video/quote block */}
-              <div className="relative bg-gray-500 text-gray-900 p-6 rounded-lg shadow-lg w-full lg:w-[900px] min-h-[500px] flex flex-col md:flex-row items-center gap-4 group">
+              <div className="relative bg-gray-500 text-gray-900 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-4xl min-h-[400px] sm:min-h-[500px] flex flex-col md:flex-row items-center gap-4 group">
                 <div className="w-full md:w-1/2 mb-4 md:mb-0">
                   <Image
                     src="/images/DigiOcean.png"
                     alt="Customer"
                     width={450}
                     height={250}
-                    className="rounded w-full h-auto cursor-pointer"
+                    className="rounded w-full h-auto object-cover cursor-pointer"
                     onClick={openVideo} // Play video on click
                   />
                 </div>
                 <div className="w-full md:w-1/2 text-left">
                   <p className="text-sm text-blue-600 font-semibold">DigitalOcean</p>
-                  <p className="text-base italic mt-1">"Proactive Statuspage notifications drive down ticket volume during an incident."</p>
+                  <p className="text-sm sm:text-base italic mt-1">"Proactive Statuspage notifications drive down ticket volume during an incident."</p>
                   <p className="text-xs mt-2 text-gray-600">Zachary Bouzan-Koufidis, Director of Customer Support</p>
                   <button
                     onClick={openVideo}
@@ -376,7 +377,7 @@ const HomePage = () => {
             </div>
 
             {/* Logos */}
-            <div className="mt-10 flex flex-wrap justify-center items-center gap-6 opacity-80">
+            <div className="mt-8 sm:mt-10 flex flex-wrap justify-center items-center gap-4 sm:gap-6 opacity-80">
               {[
                 { src: "/images/squarespace-n700.svg", alt: "Squarespace", width: 139.95, height: 20.27 },
                 { src: "/images/newrelic-n700.svg", alt: "New Relic", width: 124.1, height: 44 },
@@ -391,7 +392,7 @@ const HomePage = () => {
                   alt={logo.alt}
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain"
+                  className="object-contain w-auto h-6 sm:h-8"
                   style={{ filter: "brightness(0) invert(1)" }} // Keep logos white
                 />
               ))}
@@ -400,18 +401,18 @@ const HomePage = () => {
         </div>
 
         {/* Pricing Section */}
-        <div className="bg-gray-900 py-20 px-6 md:px-12">
+        <div className="bg-gray-900 py-12 px-4 sm:px-6 md:px-12">
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-2">Pricing that scales with you as you grow</h1>
-            <p className="text-gray-400 mb-10 text-lg mt-4">No minimum contracts, no sign-up fees, no cancellation fees</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Pricing that scales with you as you grow</h1>
+            <p className="text-gray-400 mb-8 sm:mb-10 text-sm sm:text-lg mt-4">No minimum contracts, no sign-up fees, no cancellation fees</p>
 
             {/* Tabs */}
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6 sm:mb-8">
               {["Public page", "Private page", "Audience-specific page"].map((tab, idx) => (
                 <div
                   key={idx}
                   onClick={() => setActiveTab(tab)} // Set the active tab on click
-                  className={`px-6 py-2 rounded-lg font-medium cursor-pointer transition-colors ${
+                  className={`px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-medium cursor-pointer transition-colors ${
                     activeTab === tab
                       ? "bg-blue-600 text-white"
                       : "bg-gray-700 text-gray-300 hover:bg-gray-600"
@@ -425,13 +426,13 @@ const HomePage = () => {
             {/* Tab Content */}
             {activeTab === "Public page" && (
               <div>
-                <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-5xl mx-auto mb-8">
-                  <div className="flex items-center gap-4">
-                    <p className="text-lg font-bold text-white whitespace-nowrap">Free</p>
-                    <p className="text-sm text-gray-400 flex-1">
+                <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg max-w-5xl mx-auto mb-6 sm:mb-8">
+                  <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <p className="text-base sm:text-lg font-bold text-white whitespace-nowrap">Free</p>
+                    <p className="text-sm sm:text-base text-gray-400 flex-1">
                       Our free plan gives you access to 100 subscribers, 25 components, two team members, two metrics, email notifications, Slack notifications, Microsoft Teams notifications, and access to REST APIs.
                     </p>
-                    <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 whitespace-nowrap">
+                    <button className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded hover:bg-blue-700 whitespace-nowrap">
                       Get started today
                     </button>
                   </div>
@@ -440,7 +441,7 @@ const HomePage = () => {
               </div>
             )}
             {activeTab === "Private page" && <Private />} {/* Render the Private.tsx component */}
-            {/* {activeTab === "Audience-specific page" && <AudienceSpecificPage />} Render the AudienceSpecificPage.tsx component */}
+            {activeTab === "Audience-specific page" && <AudienceSpecificPage />}
           </div>
         </div>
       </section>

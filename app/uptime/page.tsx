@@ -179,9 +179,9 @@ export default function Uptime() {
   return (
     <div className="min-h-screen bg-gray-900">
       {/* Header Section */}
-      <header className="flex flex-col items-center px-4 py-3">
+      <header className="flex flex-col items-center px-4 sm:px-6 md:px-8 py-3">
         {/* Logo */}
-        <div className="flex items-center mb-6 mt-6">
+        <div className="flex items-center mb-4 sm:mb-6 mt-4 sm:mt-6">
           <Image
             src="/images/Dropbox.svg"
             alt="Dropbox Logo"
@@ -189,7 +189,7 @@ export default function Uptime() {
             height={40}
             className="mr-2"
           />
-          <span className="text-white text-xl font-semibold">
+          <span className="text-white text-lg sm:text-xl font-semibold">
             Dropbox Status
           </span>
         </div>
@@ -198,33 +198,33 @@ export default function Uptime() {
         <div className="w-full border-b border-gray-200 mb-2"></div>
 
         {/* Navigation Links */}
-        <nav className="flex items-center justify-center space-x-6 mt-4">
-          <Link href="/status" className="text-white hover:underline">
+        <nav className="flex flex-wrap items-center justify-center space-x-4 sm:space-x-6 mt-4">
+          <Link href="/status" className="text-white hover:underline text-sm sm:text-base">
             Status Page
           </Link>
-          <Link href="/help" className="text-white hover:underline">
+          <Link href="/help" className="text-white hover:underline text-sm sm:text-base">
             Help Center
           </Link>
-          <Link href="/community" className="text-white hover:underline">
+          <Link href="/community" className="text-white hover:underline text-sm sm:text-base">
             Community
           </Link>
-          <Link href="/subscribe" className="text-white hover:underline ml-30">
+          <Link href="/subscribe" className="text-white hover:underline text-sm sm:text-base">
             Subscribe to Updates
           </Link>
         </nav>
       </header>
 
       {/* Uptime Section */}
-      <section className="flex flex-col items-center mt-8">
-        <div className="bg-blue-600 w-full py-26 text-center mb-10">
-          <h1 className="text-4xl font-bold text-white">
+      <section className="flex flex-col items-center mt-6 sm:mt-8">
+        <div className="bg-blue-600 w-full py-16 sm:py-20 md:py-26 text-center mb-8 sm:mb-10">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
             Dropbox System Status
           </h1>
         </div>
 
-        <div className="w-3/4 mt-8">
+        <div className="w-full max-w-5xl px-4 sm:px-6 md:px-8 mt-6 sm:mt-8">
           {/* Navigation Arrows */}
-          <div className="flex justify-between items-center my-6">
+          <div className="flex justify-between items-center my-4 sm:my-6">
             <button
               onClick={() => setCurrentPeriod(currentPeriod - 1)}
               disabled={currentPeriod === -1}
@@ -235,7 +235,7 @@ export default function Uptime() {
               }`}
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -249,7 +249,7 @@ export default function Uptime() {
                 />
               </svg>
             </button>
-            <span className="text-white">
+            <span className="text-white text-sm sm:text-base">
               {periodStart.toLocaleDateString("en-GB", {
                 month: "short",
                 year: "numeric",
@@ -270,7 +270,7 @@ export default function Uptime() {
               }`}
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -287,22 +287,22 @@ export default function Uptime() {
           </div>
 
           {/* Contribution Graphs by Month - Displayed Horizontally */}
-          <div className="flex flex-row space-x-6 overflow-x-auto px-80">
+          <div className="flex flex-row space-x-4 sm:space-x-6 overflow-x-auto px-4 sm:px-8 md:px-20">
             {sortedMonths.map((monthYear) => {
               const { grid, monthLabels } = monthGrids[monthYear];
               return (
                 <div key={monthYear} className="flex-shrink-0">
-                  <h3 className="text-lg font-semibold text-white mb-2 items-center">
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-2 text-center">
                     {monthYear}
                   </h3>
                   {/* Month Contribution Graph */}
                   <div className="flex">
-                    {/* Day of Week Labels */}
+                    {/* Day of Week Labels (Empty in original code) */}
                     <div className="flex items-center flex-col mr-2">
-                      {[].map(
+                      {[""].map(
                         (label, index) => (
-                          <div key={index} className="h-4 flex items-center">
-                            <p className="text-gray-400 text-xs">{label}</p>
+                          <div key={index} className="h-3 sm:h-4 flex items-center">
+                            <p className="text-gray-400 text-[10px] sm:text-xs">{label}</p>
                           </div>
                         )
                       )}
@@ -316,7 +316,7 @@ export default function Uptime() {
                             return (
                               <div
                                 key={dayIndex}
-                                className={`relative w-4 h-4 m-0.5 ${
+                                className={`relative w-3 h-3 sm:w-4 sm:h-4 m-0.5 sm:m-1 ${
                                   !day || !day.inRange
                                     ? "bg-gray-600" // Days outside the range or empty
                                     : hasIncidentOnDay(day.date)
@@ -326,7 +326,7 @@ export default function Uptime() {
                               >
                                 {/* Tooltip */}
                                 {day && (
-                                  <div className="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-10 left-1/2 transform -translate-x-1/2 w-max">
+                                  <div className="absolute hidden group-hover:block bg-gray-800 text-white text-[10px] sm:text-xs rounded py-1 px-2 -top-10 sm:-top-12 left-1/2 transform -translate-x-1/2 w-max z-10">
                                     <p>{day.date}</p>
                                     <p>
                                       {!day.inRange
@@ -350,9 +350,9 @@ export default function Uptime() {
           </div>
 
           {/* Current Status Button */}
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <Link href="/DropBoxStatus">
-              <button className=" text-white cursor-pointer py-2 rounded">
+              <button className="text-white cursor-pointer py-2 px-4 sm:px-6 rounded text-sm sm:text-base hover:underline">
                 — Current Status
               </button>
             </Link>
@@ -361,65 +361,63 @@ export default function Uptime() {
       </section>
 
       {/* Footer Section */}
-      <footer className="bg-gray-900 mt-12 py-8">
-        <div className="w-full border-t border-gray-600 mb-8"></div>
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-wrap justify-between">
-            {/* Logo and Title */}
-            
-
-            <div className="mb-8">
-              <h3 className="text-white font-semibold mb-4">Dropbox</h3>
+      <footer className="bg-gray-900 mt-8 sm:mt-12 py-6 sm:py-8">
+        <div className="w-full border-t border-gray-600 mb-6 sm:mb-8"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
+            {/* Dropbox Links */}
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Dropbox</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Plus
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Business
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Enterprise
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Dash
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Plans
                   </a>
                 </li>
               </ul>
             </div>
 
-            {/* Product Links */}
-            <div className="mb-8">
-              <h3 className="text-white font-semibold mb-4">Using Dropbox</h3>
+            {/* Using Dropbox Links */}
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Using Dropbox</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Help Center
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Security
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Productivity
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Integrations
                   </a>
                 </li>
@@ -427,54 +425,55 @@ export default function Uptime() {
             </div>
 
             {/* Company Links */}
-            <div className="mb-8">
-              <h3 className="text-white font-semibold mb-4">Company</h3>
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Company</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     About Us
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
-                    Contatct Support
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
+                    Contact Support
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Blog
                   </a>
                 </li>
               </ul>
             </div>
 
-            {/* Support Links */}
-            <div className="mb-8">
-              <h3 className="text-white font-semibold mb-4">Downloads</h3>
+            {/* Downloads Links */}
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Downloads</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Desktop app
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Mobile apps
                   </a>
                 </li>
               </ul>
             </div>
 
-<div className="mb-8">
-              <h3 className="text-white font-semibold mb-4">Legal</h3>
+            {/* Legal Links */}
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Legal</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Privacy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:underline">
+                  <a href="#" className="text-gray-400 hover:underline text-sm sm:text-base">
                     Terms
                   </a>
                 </li>

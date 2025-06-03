@@ -1,44 +1,104 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { User } from "lucide-react";
 import Footer from "./components/Footer";
 import Pricing from "./components/Pricing";
-import Private from "./components/Private"; // Import the Private.tsx component
-import AudienceSpecificPage from "./components/AudienceSpecificPage"; // Import the AudienceSpecificPage.tsx component
+import Private from "./components/Private";
+import AudienceSpecificPage from "./components/AudienceSpecificPage";
 
 const HomePage = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("Public page"); // State to track the active tab
-  const router = useRouter(); // Initialize useRouter for navigation
+  const [activeTab, setActiveTab] = useState("Public page");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const router = useRouter();
+
+  // State for user data
+  const [username, setUsername] = useState('User');
+  const [email, setEmail] = useState('user@example.com');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Load user data from localStorage on mount
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    const storedEmail = localStorage.getItem('email');
+    const storedToken = localStorage.getItem('accessToken');
+
+    if (storedUsername && storedEmail && storedToken) {
+      setUsername(storedUsername);
+      setEmail(storedEmail);
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const openVideo = () => setIsVideoOpen(true);
   const closeVideo = () => setIsVideoOpen(false);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleProfileDropdown = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
 
-  // Handler for navigating to DigOceanStauts page
   const handleViewStatuspage = () => {
     router.push("/DigOceanStatus");
   };
 
   const handleViewStatuspage1 = () => {
-    router.push("/DropBoxStatus"); 
-  }
+    router.push("/DropBoxStatus");
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/v1/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        // Clear localStorage
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('username');
+        localStorage.removeItem('email');
+
+        setIsLoggedIn(false);
+        setUsername('User');
+        setEmail('user@example.com');
+        setIsProfileDropdownOpen(false);
+        setIsMenuOpen(false);
+        alert('Logged out successfully!');
+        router.push('/');
+      } else {
+        const data = await response.json();
+        alert(data.error || 'Logout failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      alert('An error occurred during logout. Please try again.');
+    }
+  };
+
+  const navItems = [
+    { label: "Product", href: "#" },
+    { label: "Solutions", href: "#" },
+    { label: "Pricing", href: "#" },
+    { label: "Resources", href: "#" },
+    { label: "Support", href: "#" },
+  ];
 
   return (
     <div>
-      {/* Video Modal */}
       {isVideoOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 px-4">
           <div className="relative bg-gray-900 rounded-lg p-4 w-full max-w-3xl">
-            {/* Close Button */}
             <button
               onClick={closeVideo}
               className="absolute top-2 right-2 text-white text-2xl font-bold"
             >
               ×
             </button>
-            {/* YouTube Video Embed */}
             <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
@@ -53,51 +113,149 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* Header */}
       <header className="bg-gray-900 text-white py-4 px-4 sm:px-6 md:px-12">
         <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
-          {/* Logo */}
           <div className="text-xl sm:text-2xl font-bold">
             <a href="/" className="text-white hover:text-blue-400 transition">
               Statuspage
             </a>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="flex-1 flex justify-center">
+          <button
+            className="lg:hidden flex items-center text-white"
+            onClick={toggleMenu}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              className="w-6 h-6 fill-current"
+            >
+              <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+            </svg>
+          </button>
+
+          <nav className="hidden lg:flex flex-1 justify-center">
             <ul className="flex flex-wrap justify-center space-x-4 sm:space-x-8">
-              {["Product", "Solutions", "Pricing", "Resources", "Support"].map((item, idx) => (
+              {navItems.map((item, idx) => (
                 <li key={idx}>
                   <a
-                    href="#"
+                    href={item.href}
                     className="text-gray-300 hover:text-white transition text-sm sm:text-base font-medium"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
 
-          {/* Action Buttons */}
-          <div className="flex space-x-4">
-            <a
-              href="#"
-              className="bg-blue-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded hover:bg-blue-700 transition text-sm sm:text-base font-medium"
-            >
-              Log in
-            </a>
-            <a
-              href="#"
-              className="bg-blue-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded hover:bg-blue-700 transition text-sm sm:text-base font-medium"
-            >
-              Sign up
-            </a>
+          <div className="hidden lg:flex items-center space-x-2 relative">
+            {isLoggedIn ? (
+              <div className="flex items-center cursor-pointer" onClick={toggleProfileDropdown}>
+                <span className="text-gray-300 text-sm sm:text-base font-medium">
+                  Hi {username}
+                </span>
+                <User className="w-5 h-5 text-gray-300 ml-1" />
+              </div>
+            ) : (
+              <div className="flex space-x-2">
+                <a
+                  href="/signin"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition"
+                >
+                  Log in
+                </a>
+                <a
+                  href="/signup"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition"
+                >
+                  Sign up
+                </a>
+              </div>
+            )}
+            {isLoggedIn && isProfileDropdownOpen && (
+              <div className="absolute top-full right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg py-2 z-10">
+                <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-700">
+                  <p className="font-medium">{username}</p>
+                </div>
+                <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-700">
+                  <p>{email}</p>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-gray-300 text-sm hover:bg-gray-700 transition"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
+
+          {isMenuOpen && (
+            <div className="lg:hidden w-full mt-4 bg-gray-800 rounded-lg shadow-lg">
+              <ul className="flex flex-col items-end py-4 space-y-4 pr-4">
+                {navItems.map((item, idx) => (
+                  <li key={idx} className="border-b border-gray-600 w-full text-right">
+                    <a
+                      href={item.href}
+                      className="text-gray-300 hover:text-white transition text-base font-medium block py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                <li className="w-full">
+                  {isLoggedIn ? (
+                    <div className="flex justify-end border-b border-gray-600 py-2">
+                      <div className="flex items-center cursor-pointer" onClick={toggleProfileDropdown}>
+                        <span className="text-gray-300 text-base font-medium">
+                          Hi {username}
+                        </span>
+                        <User className="w-5 h-5 text-gray-300 ml-2" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col space-y-2 w-full">
+                      <a
+                        href="/signin"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition text-center border-b border-gray-600"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Log in
+                      </a>
+                      <a
+                        href="/signup"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition text-center border-b border-gray-600"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Sign up
+                      </a>
+                    </div>
+                  )}
+                  {isLoggedIn && isProfileDropdownOpen && (
+                    <div className="mt-2 w-full bg-gray-700 rounded-lg shadow-lg py-2">
+                      <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-600">
+                        <p className="font-medium">{username}</p>
+                      </div>
+                      <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-600">
+                        <p>{email}</p>
+                      </div>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-gray-300 text-sm hover:bg-gray-600 transition border-b border-gray-600"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </header>
 
-      {/* Hero Section */}
       <section className="bg-gray-900 text-white py-12 px-4 sm:px-8 md:px-20 flex items-center justify-center">
         <div className="max-w-3xl text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
@@ -135,10 +293,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Trusted By Section */}
       <section className="bg-gray-900 text-white py-12 px-4 sm:px-6 md:px-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 justify-items-center">
-          {/* DigitalOcean Card */}
           <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg p-4 w-full max-w-md relative group">
             <div className="relative">
               <Image
@@ -153,7 +309,7 @@ const HomePage = () => {
                 style={{ backgroundColor: "#f7f7f2" }}
               >
                 <button
-                  onClick={handleViewStatuspage} // Add onClick handler for navigation
+                  onClick={handleViewStatuspage}
                   className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer"
                 >
                   View statuspage
@@ -162,8 +318,6 @@ const HomePage = () => {
             </div>
             <p className="text-center mt-4 text-gray-400 font-semibold text-sm sm:text-base">DigitalOcean</p>
           </div>
-
-          {/* Dropbox Card */}
           <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg p-4 w-full max-w-md relative group">
             <div className="relative">
               <Image
@@ -177,10 +331,10 @@ const HomePage = () => {
                 className="absolute inset-0 flex items-center justify-center bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: "#f7f7f2" }}
               >
-                <button 
-                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer"
+                <button
                   onClick={handleViewStatuspage1}
-                >  
+                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer"
+                >
                   View statuspage
                 </button>
               </div>
@@ -191,13 +345,9 @@ const HomePage = () => {
       </section>
 
       <section className="bg-gray-900 text-white">
-        {/* Top shadow line */}
         <div className="h-2 w-full shadow-md bg-gray-900" />
-
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:px-12 space-y-16 sm:space-y-24">
-          {/* Block 1 */}
           <div className="flex flex-col-reverse md:flex-row items-center gap-8 sm:gap-12">
-            {/* Text */}
             <div className="md:w-1/2">
               <h5 className="text-xs sm:text-sm uppercase text-blue-300 font-semibold mb-2">
                 Support & IT Teams
@@ -211,8 +361,6 @@ const HomePage = () => {
                 in-app message, etc.)
               </p>
             </div>
-
-            {/* Image */}
             <div className="md:w-1/2">
               <Image
                 src="/images/Status Page Balloons@2x.png"
@@ -223,10 +371,7 @@ const HomePage = () => {
               />
             </div>
           </div>
-
-          {/* Block 2 */}
           <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-12">
-            {/* Image */}
             <div className="md:w-1/2">
               <Image
                 src="/images/components.png"
@@ -236,8 +381,6 @@ const HomePage = () => {
                 className="mx-auto w-full h-auto object-contain"
               />
             </div>
-
-            {/* Text */}
             <div className="md:w-1/2">
               <h5 className="text-xs sm:text-sm uppercase text-blue-300 font-semibold mb-2">
                 DevOps & IT Teams
@@ -247,50 +390,45 @@ const HomePage = () => {
               </h2>
               <p className="text-gray-300 text-sm sm:text-base">
                 Control which components of your service you show on your page, and tap into 150+ third party components to display
-                the status of mission-critical tools your service relies on like Stripe, Mailgun, Shopify, and PagerDuty.
+                the status of mission-critical tools your service relies on like Stripe, Mailgun
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-900 text-gray-300">
-        {/* Section 1 */}
+      <section className="bg-gray-100">
         <div className="bg-gray-900 text-gray-300 shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12">
-            {/* Text */}
-            <div className="lg:w-1/2">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
-                Statuspage is the communication piece of your incident management process
-              </h2>
-              <p className="text-gray-300 mb-4 text-sm sm:text-base">
-                Keep users in the loop from ‘investigating’ through ‘resolved’.
-              </p>
-              <p className="text-gray-300 mb-4 text-sm sm:text-base">
-                Statuspage integrates with your favorite monitoring, alerting, chat, and help desk tools for efficient response every time.
-              </p>
-              <a href="#" className="text-blue-600 font-medium hover:underline text-sm sm:text-base">
-                Learn more about integrations and automation →
-              </a>
-            </div>
-
-            {/* Image */}
-            <div className="lg:w-1/2 flex justify-center">
-              <Image
-                src="/images/communication-tools.png"
-                alt="Incident communication"
-                width={400}
-                height={300}
-                className="object-contain w-full h-auto"
-              />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12">
+              <div className="lg:w-1/2">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
+                  Statuspage is the communication piece of your incident management process
+                </h2>
+                <p className="text-gray-300 mb-4 text-sm sm:text-base">
+                  Keep users in the loop from ‘investigating’ through ‘resolved’.
+                </p>
+                <p className="text-gray-300 mb-4 sm:text-base">
+                  Statuspage integrates with your favorite monitoring, alerting, chat, and help desk tools for efficient response every time.
+                </p>
+                <a href="#" className="text-blue-600 font-medium hover:underline text-sm sm:text-base">
+                  Learn more about integrations and automation →
+                </a>
+              </div>
+              <div className="lg:w-1/2 flex justify-center">
+                <Image
+                  src="/images/communication-tools.png"
+                  alt="Incident communication"
+                  width={400}
+                  height={300}
+                  className="object-contain w-full h-auto"
+                />
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Section 2 */}
         <div className="bg-gray-900 text-gray-300 shadow-lg mt-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 flex flex-col-reverse lg:flex-row items-center justify-between gap-8 sm:gap-12">
-            {/* Text */}
             <div className="lg:w-1/2">
               <h5 className="text-xs sm:text-sm uppercase text-blue-500 font-semibold mb-2">
                 Incident Response Teams
@@ -303,8 +441,6 @@ const HomePage = () => {
                 management tools you already rely on enable you to quickly get the word out to users.
               </p>
             </div>
-
-            {/* Image */}
             <div className="lg:w-1/2 flex justify-center">
               <Image
                 src="/images/Status Page Light@2x.png"
@@ -319,9 +455,7 @@ const HomePage = () => {
       </section>
 
       <section className="bg-gray-900 text-gray-300">
-        {/* Showcase reliability */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center gap-8 sm:gap-10">
-          {/* Image */}
           <div className="lg:w-1/2 flex justify-center">
             <Image
               src="/images/uptime.png"
@@ -331,8 +465,6 @@ const HomePage = () => {
               className="object-contain w-full h-auto shadow-lg"
             />
           </div>
-
-          {/* Text */}
           <div className="lg:w-1/2">
             <h5 className="text-xs sm:text-sm uppercase text-blue-500 font-semibold mb-2">
               Marketing & Sales Teams
@@ -343,15 +475,11 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-
-        {/* Trusted by thousands */}
         <div className="bg-gray-900 py-12 px-4 sm:px-6 md:px-12">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-8 sm:mb-10">Trusted by thousands of companies</h2>
-
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-8 sm:mb-8">Trusted by thousands of companies</h2>
             <div className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8">
-              {/* Video/quote block */}
-              <div className="relative bg-gray-500 text-gray-900 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-4xl min-h-[400px] sm:min-h-[500px] flex flex-col md:flex-row items-center gap-4 group">
+              <div className="relative bg-gray-500 text-gray-900 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-4xl min-h-[400px] sm:min-h-[500px] flex flex-col md:flex-row items-center gap-4 sm:mt-6">
                 <div className="w-full md:w-1/2 mb-4 md:mb-0">
                   <Image
                     src="/images/DigiOcean.png"
@@ -359,13 +487,13 @@ const HomePage = () => {
                     width={450}
                     height={250}
                     className="rounded w-full h-auto object-cover cursor-pointer"
-                    onClick={openVideo} // Play video on click
+                    onClick={openVideo}
                   />
                 </div>
                 <div className="w-full md:w-1/2 text-left">
                   <p className="text-sm text-blue-600 font-semibold">DigitalOcean</p>
                   <p className="text-sm sm:text-base italic mt-1">"Proactive Statuspage notifications drive down ticket volume during an incident."</p>
-                  <p className="text-xs mt-2 text-gray-600">Zachary Bouzan-Koufidis, Director of Customer Support</p>
+                  <p className="text-xs mt-2 text-gray-600">Zachary Bouzan-Kaufmann, Director of Customer Support</p>
                   <button
                     onClick={openVideo}
                     className="text-blue-600 text-sm mt-2 inline-block hover:underline"
@@ -375,8 +503,6 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-
-            {/* Logos */}
             <div className="mt-8 sm:mt-10 flex flex-wrap justify-center items-center gap-4 sm:gap-6 opacity-80">
               {[
                 { src: "/images/squarespace-n700.svg", alt: "Squarespace", width: 139.95, height: 20.27 },
@@ -393,25 +519,21 @@ const HomePage = () => {
                   width={logo.width}
                   height={logo.height}
                   className="object-contain w-auto h-6 sm:h-8"
-                  style={{ filter: "brightness(0) invert(1)" }} // Keep logos white
+                  style={{ filter: "brightness(0) invert(1)" }}
                 />
               ))}
             </div>
           </div>
         </div>
-
-        {/* Pricing Section */}
         <div className="bg-gray-900 py-12 px-4 sm:px-6 md:px-12">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Pricing that scales with you as you grow</h1>
             <p className="text-gray-400 mb-8 sm:mb-10 text-sm sm:text-lg mt-4">No minimum contracts, no sign-up fees, no cancellation fees</p>
-
-            {/* Tabs */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6 sm:mb-8">
               {["Public page", "Private page", "Audience-specific page"].map((tab, idx) => (
                 <div
                   key={idx}
-                  onClick={() => setActiveTab(tab)} // Set the active tab on click
+                  onClick={() => setActiveTab(tab)}
                   className={`px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-medium cursor-pointer transition-colors ${
                     activeTab === tab
                       ? "bg-blue-600 text-white"
@@ -422,8 +544,6 @@ const HomePage = () => {
                 </div>
               ))}
             </div>
-
-            {/* Tab Content */}
             {activeTab === "Public page" && (
               <div>
                 <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg max-w-5xl mx-auto mb-6 sm:mb-8">
@@ -432,15 +552,15 @@ const HomePage = () => {
                     <p className="text-sm sm:text-base text-gray-400 flex-1">
                       Our free plan gives you access to 100 subscribers, 25 components, two team members, two metrics, email notifications, Slack notifications, Microsoft Teams notifications, and access to REST APIs.
                     </p>
-                    <button className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded hover:bg-blue-700 whitespace-nowrap">
+                    <button className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded hover:bg-blue-700 transition whitespace-nowrap">
                       Get started today
                     </button>
                   </div>
                 </div>
-                <Pricing /> {/* Render the Pricing component below the Free plan */}
+                <Pricing />
               </div>
             )}
-            {activeTab === "Private page" && <Private />} {/* Render the Private.tsx component */}
+            {activeTab === "Private page" && <Private />}
             {activeTab === "Audience-specific page" && <AudienceSpecificPage />}
           </div>
         </div>

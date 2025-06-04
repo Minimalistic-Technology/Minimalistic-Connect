@@ -2,81 +2,38 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Eye, EyeOff, GoalIcon, Apple, Slack, Mail } from 'lucide-react';
+import { GoalIcon, Apple, Slack, Mail } from 'lucide-react';
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const router = useRouter();
 
-  interface LoginResponse {
-    accessToken: string;
-    error?: string;
-    [key: string]: any;
-  }
+  interface HandleSubmitEvent extends React.FormEvent<HTMLButtonElement> {}
 
-  interface LoginEvent extends React.MouseEvent<HTMLButtonElement, MouseEvent> {}
-
-  const handleSubmit = async (e: LoginEvent): Promise<void> => {
+  const handleSubmit = (e: HandleSubmitEvent): void => {
     e.preventDefault();
 
-    if (!email || !password) {
-      alert('Please enter both email and password.');
+    // Validation: Ensure email is a Gmail address
+    if (!email || !email.includes("@") || !email.toLowerCase().endsWith("@gmail.com")) {
+      alert("Please enter a valid Gmail address (e.g., example@gmail.com).");
       return;
     }
 
-    try {
-      // Login request
-      const loginResponse = await fetch('http://localhost:5000/api/v1/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      });
-
-      const loginData: LoginResponse = await loginResponse.json();
-      if (!loginResponse.ok) {
-        alert(loginData.error || 'Login failed. Please try again.');
-        return;
-      }
-
-      // Store access token
-      localStorage.setItem('accessToken', loginData.accessToken);
-
-      // Fetch user details (assuming a new endpoint or database query is needed)
-      // Since your backend doesn't return username/email in login, assume a new endpoint
-      const userResponse = await fetch('http://localhost:5000/api/v1/me', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${loginData.accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const userData = await userResponse.json();
-      if (!userResponse.ok) {
-        alert(userData.error || 'Failed to fetch user details.');
-        return;
-      }
-
-      // Store user details in localStorage
-      localStorage.setItem('username', userData.username);
-      localStorage.setItem('email', userData.email);
-
-      alert('Login successful!');
-      router.push(`/?username=${encodeURIComponent(userData.username)}&email=${encodeURIComponent(userData.email)}`);
-    } catch (error) {
-      console.error('Login error:', error);
-      alert('An error occurred during login. Please try again.');
+    // Validation: Ensure terms are accepted
+    if (!acceptTerms) {
+      alert('Please accept the terms of service and privacy policy.');
+      return;
     }
+
+    // Navigate to OTP page with email as query parameter
+    router.push(`/otp?email=${encodeURIComponent(email)}`);
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#F4F5F7] p-4">
       <div className="w-full max-w-[400px] p-6 sm:p-8 bg-white rounded-lg shadow-lg">
+        {/* Atlassian Logo */}
         <div className="flex justify-center mb-6">
           <div className="flex items-center">
             <div className="mr-2">
@@ -87,11 +44,11 @@ export default function SignInPage() {
         </div>
 
         <h2 className="text-center text-[#172B4D] text-lg sm:text-xl font-medium mb-6">
-          Log in to continue
+          Sign up to continue
         </h2>
 
+        {/* Email Input */}
         <div className="mb-4">
-          <label className="block text-[#172B4D] text-sm font-medium mb-1">Email address</label>
           <input
             type="email"
             placeholder="Enter your email"
@@ -101,37 +58,41 @@ export default function SignInPage() {
           />
         </div>
 
-        <div className="mb-6 relative">
-          <label className="block text-[#172B4D] text-sm font-medium mb-1">Password</label>
-          <div className="relative">
-            <input
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Enter your password"
-              className="w-full px-3 py-2 border border-[#DFE1E6] rounded-md focus:outline-none focus:ring-2 focus:ring-[#0052CC] text-[#172B4D] text-sm sm:text-base"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5E6C84] hover:text-[#172B4D]"
-            >
-              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-            </button>
-          </div>
+        {/* Terms Checkbox */}
+        <div className="mb-6 flex items-center">
+          <input
+            type="checkbox"
+            id="accept-terms"
+            className="h-4 w-4 text-[#0052CC] border-[#DFE1E6] rounded focus:ring-[#0052CC]"
+            checked={acceptTerms}
+            onChange={(e) => setAcceptTerms(e.target.checked)}
+          />
+          <label htmlFor="accept-terms" className="ml-2 text-sm text-[#172B4D]">
+            By signing up, I accept the Atlassian Cloud{' '}
+            <a href="#" className="Texas-[#0052CC] underline hover:text-[#003087]">
+              Terms of Service
+            </a>{' '}
+            and acknowledge the{' '}
+            <a href="#" className="text-[#0052CC] underline hover:text-[#003087]">
+              Privacy Policy
+            </a>.
+          </label>
         </div>
 
+        {/* Sign Up Button */}
         <button
           onClick={handleSubmit}
           className="w-full bg-[#0052CC] text-white py-2 px-4 rounded-md font-medium text-sm sm:text-base hover:bg-[#003087] transition"
         >
-          Log in
+          Sign up
         </button>
 
+        {/* Divider */}
         <div className="my-6 text-center text-[#5E6C84] text-sm sm:text-base">
           Or continue with:
         </div>
 
+        {/* SSO Buttons */}
         <div className="flex flex-col gap-3">
           <button className="w-full flex items-center justify-center py-2 px-4 border border-[#DFE1E6] rounded-md bg-white text-[#172B4D] text-sm sm:text-base hover:bg-[#FAFBFC] transition">
             <GoalIcon className="w-5 h-5 mr-2" />
@@ -151,15 +112,17 @@ export default function SignInPage() {
           </button>
         </div>
 
+        {/* Log In Link */}
         <div className="mt-6 text-center">
           <p className="text-sm text-[#5E6C84]">
-            Don’t have an Atlassian account?{' '}
-            <a href="/signup" className="text-[#0052CC] underline hover:text-[#003087]">
-              Sign up
+            Already have an Atlassian account?{' '}
+            <a href="/signin" className="text-[#0052CC] underline hover:text-[#003087]">
+              Log in
             </a>
           </p>
         </div>
 
+        {/* Footer */}
         <div className="mt-8 text-center">
           <div className="flex justify-center mb-4">
             <div className="flex items-center">

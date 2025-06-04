@@ -1,31 +1,30 @@
+
 "use client";
 
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "lucide-react";
+import Header from "./components/Header/page"; // Updated import path
 import Footer from "./components/Footer";
 import Pricing from "./components/Pricing";
 import Private from "./components/Private";
 import AudienceSpecificPage from "./components/AudienceSpecificPage";
 
-const HomePage = () => {
+export default function HomePage() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("Public page");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const router = useRouter();
 
   // State for user data
-  const [username, setUsername] = useState('User');
-  const [email, setEmail] = useState('user@example.com');
+  const [username, setUsername] = useState("User");
+  const [email, setEmail] = useState("user@example.com");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Load user data from localStorage on mount
   useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    const storedEmail = localStorage.getItem('email');
-    const storedToken = localStorage.getItem('accessToken');
+    const storedUsername = localStorage.getItem("username");
+    const storedEmail = localStorage.getItem("email");
+    const storedToken = localStorage.getItem("accessToken");
 
     if (storedUsername && storedEmail && storedToken) {
       setUsername(storedUsername);
@@ -36,8 +35,6 @@ const HomePage = () => {
 
   const openVideo = () => setIsVideoOpen(true);
   const closeVideo = () => setIsVideoOpen(false);
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleProfileDropdown = () => setIsProfileDropdownOpen(!isProfileDropdownOpen);
 
   const handleViewStatuspage = () => {
     router.push("/DigOceanStatus");
@@ -49,44 +46,33 @@ const HomePage = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/v1/auth/logout', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/api/v1/logout", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
       });
 
       if (response.ok) {
-        // Clear localStorage
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('username');
-        localStorage.removeItem('email');
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("username");
+        localStorage.removeItem("email");
 
         setIsLoggedIn(false);
-        setUsername('User');
-        setEmail('user@example.com');
-        setIsProfileDropdownOpen(false);
-        setIsMenuOpen(false);
-        alert('Logged out successfully!');
-        router.push('/');
+        setUsername("User");
+        setEmail("user@example.com");
+        alert("Logged out successfully!");
+        router.push("/");
       } else {
         const data = await response.json();
-        alert(data.error || 'Logout failed. Please try again.');
+        alert(data.error || "Logout failed. Please try again.");
       }
     } catch (error) {
-      console.error('Logout error:', error);
-      alert('An error occurred during logout. Please try again.');
+      console.error("Logout error:", error);
+      alert("An error occurred during logout. Please try again.");
     }
   };
-
-  const navItems = [
-    { label: "Product", href: "#" },
-    { label: "Solutions", href: "#" },
-    { label: "Pricing", href: "#" },
-    { label: "Resources", href: "#" },
-    { label: "Support", href: "#" },
-  ];
 
   return (
     <div>
@@ -113,148 +99,12 @@ const HomePage = () => {
         </div>
       )}
 
-      <header className="bg-gray-900 text-white py-4 px-4 sm:px-6 md:px-12">
-        <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
-          <div className="text-xl sm:text-2xl font-bold">
-            <a href="/" className="text-white hover:text-blue-400 transition">
-              Statuspage
-            </a>
-          </div>
-
-          <button
-            className="lg:hidden flex items-center text-white"
-            onClick={toggleMenu}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              className="w-6 h-6 fill-current"
-            >
-              <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
-            </svg>
-          </button>
-
-          <nav className="hidden lg:flex flex-1 justify-center">
-            <ul className="flex flex-wrap justify-center space-x-4 sm:space-x-8">
-              {navItems.map((item, idx) => (
-                <li key={idx}>
-                  <a
-                    href={item.href}
-                    className="text-gray-300 hover:text-white transition text-sm sm:text-base font-medium"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="hidden lg:flex items-center space-x-2 relative">
-            {isLoggedIn ? (
-              <div className="flex items-center cursor-pointer" onClick={toggleProfileDropdown}>
-                <span className="text-gray-300 text-sm sm:text-base font-medium">
-                  Hi {username}
-                </span>
-                <User className="w-5 h-5 text-gray-300 ml-1" />
-              </div>
-            ) : (
-              <div className="flex space-x-2">
-                <a
-                  href="/signin"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition"
-                >
-                  Log in
-                </a>
-                <a
-                  href="/signup"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition"
-                >
-                  Sign up
-                </a>
-              </div>
-            )}
-            {isLoggedIn && isProfileDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg py-2 z-10">
-                <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-700">
-                  <p className="font-medium">{username}</p>
-                </div>
-                <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-700">
-                  <p>{email}</p>
-                </div>
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-gray-300 text-sm hover:bg-gray-700 transition"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
-
-          {isMenuOpen && (
-            <div className="lg:hidden w-full mt-4 bg-gray-800 rounded-lg shadow-lg">
-              <ul className="flex flex-col items-end py-4 space-y-4 pr-4">
-                {navItems.map((item, idx) => (
-                  <li key={idx} className="border-b border-gray-600 w-full text-right">
-                    <a
-                      href={item.href}
-                      className="text-gray-300 hover:text-white transition text-base font-medium block py-2"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-                <li className="w-full">
-                  {isLoggedIn ? (
-                    <div className="flex justify-end border-b border-gray-600 py-2">
-                      <div className="flex items-center cursor-pointer" onClick={toggleProfileDropdown}>
-                        <span className="text-gray-300 text-base font-medium">
-                          Hi {username}
-                        </span>
-                        <User className="w-5 h-5 text-gray-300 ml-2" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col space-y-2 w-full">
-                      <a
-                        href="/signin"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition text-center border-b border-gray-600"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Log in
-                      </a>
-                      <a
-                        href="/signup"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-600 transition text-center border-b border-gray-600"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Sign up
-                      </a>
-                    </div>
-                  )}
-                  {isLoggedIn && isProfileDropdownOpen && (
-                    <div className="mt-2 w-full bg-gray-700 rounded-lg shadow-lg py-2">
-                      <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-600">
-                        <p className="font-medium">{username}</p>
-                      </div>
-                      <div className="px-4 py-2 text-gray-300 text-sm border-b border-gray-600">
-                        <p>{email}</p>
-                      </div>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-gray-300 text-sm hover:bg-gray-600 transition border-b border-gray-600"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      </header>
+      <Header
+        isLoggedIn={isLoggedIn}
+        username={username}
+        email={email}
+        handleLogout={handleLogout}
+      />
 
       <section className="bg-gray-900 text-white py-12 px-4 sm:px-8 md:px-20 flex items-center justify-center">
         <div className="max-w-3xl text-center">
@@ -310,8 +160,7 @@ const HomePage = () => {
               >
                 <button
                   onClick={handleViewStatuspage}
-                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer"
-                >
+                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer">
                   View statuspage
                 </button>
               </div>
@@ -333,8 +182,7 @@ const HomePage = () => {
               >
                 <button
                   onClick={handleViewStatuspage1}
-                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer"
-                >
+                  className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold cursor-pointer">
                   View statuspage
                 </button>
               </div>
@@ -456,11 +304,11 @@ const HomePage = () => {
 
       <section className="bg-gray-900 text-gray-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 flex flex-col lg:flex-row items-center gap-8 sm:gap-10">
-          <div className="lg:w-1/2 flex justify-center">
+          <div className="lg:w-full">
             <Image
               src="/images/uptime.png"
               alt="Uptime chart"
-              width={500}
+              width="500"
               height={300}
               className="object-contain w-full h-auto shadow-lg"
             />
@@ -499,21 +347,21 @@ const HomePage = () => {
                     className="text-blue-600 text-sm mt-2 inline-block hover:underline"
                   >
                     Watch the video →
-                  </button>
+                    </button>
                 </div>
               </div>
             </div>
             <div className="mt-8 sm:mt-10 flex flex-wrap justify-center items-center gap-4 sm:gap-6 opacity-80">
-              {[
-                { src: "/images/squarespace-n700.svg", alt: "Squarespace", width: 139.95, height: 20.27 },
-                { src: "/images/newrelic-n700.svg", alt: "New Relic", width: 124.1, height: 44 },
-                { src: "/images/reddit-n700.svg", alt: "Reddit", width: 90, height: 35 },
-                { src: "/images/twilio-n700.svg", alt: "Twilio", width: 73.8, height: 33 },
-                { src: "/images/coinbase-n700.svg", alt: "Coinbase", width: 83.48, height: 27 },
-                { src: "/images/shopify-n700.svg", alt: "Shopify", width: 82.43, height: 35 },
-              ].map((logo, index) => (
+            {[
+              { src: "/images/squarespace-n700.png", alt: "Squarespace", width: 139.95, height: 20.27 },
+              { src: "/images/newrelic-n700.png", alt: "New Relic", width: 124.1, height: 44 },
+              { src: "/images/reddit-n700.png", alt: "Reddit", width: 90, height: 35 },
+              { src: "/images/twilio-n700.png", alt: "Twilio", width: 73.8, height: 33 },
+              { src: "/images/coinbase-n700.png", alt: "Coinbase", width: 83.48, height: 27 },
+              { src: "/images/shopify-n700.png", alt: "Shopify", width: 82.43, height: 35 },
+            ].map((logo, index) => (
+              <div key={index}>
                 <Image
-                  key={index}
                   src={logo.src}
                   alt={logo.alt}
                   width={logo.width}
@@ -521,54 +369,53 @@ const HomePage = () => {
                   className="object-contain w-auto h-6 sm:h-8"
                   style={{ filter: "brightness(0) invert(1)" }}
                 />
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-900 py-12 px-4 sm:px-6 md:px-12">
-          <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Pricing that scales with you as you grow</h1>
-            <p className="text-gray-400 mb-8 sm:mb-10 text-sm sm:text-lg mt-4">No minimum contracts, no sign-up fees, no cancellation fees</p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6 sm:mb-8">
-              {["Public page", "Private page", "Audience-specific page"].map((tab, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-medium cursor-pointer transition-colors ${
-                    activeTab === tab
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                  }`}
-                >
-                  {tab}
-                </div>
-              ))}
-            </div>
-            {activeTab === "Public page" && (
-              <div>
-                <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg max-w-5xl mx-auto mb-6 sm:mb-8">
-                  <div className="flex flex-col sm:flex-row items-center gap-4">
-                    <p className="text-base sm:text-lg font-bold text-white whitespace-nowrap">Free</p>
-                    <p className="text-sm sm:text-base text-gray-400 flex-1">
-                      Our free plan gives you access to 100 subscribers, 25 components, two team members, two metrics, email notifications, Slack notifications, Microsoft Teams notifications, and access to REST APIs.
-                    </p>
-                    <button className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded hover:bg-blue-700 transition whitespace-nowrap">
-                      Get started today
-                    </button>
-                  </div>
-                </div>
-                <Pricing />
               </div>
-            )}
-            {activeTab === "Private page" && <Private />}
-            {activeTab === "Audience-specific page" && <AudienceSpecificPage />}
+            ))}
           </div>
         </div>
-      </section>
+      <div className="bg-gray-900 py-12 px-4 sm:px-6 md:px-12">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Pricing that scales with you as you grow</h1>
+          <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-lg mt-4">No minimum contracts, no sign-up fees, no cancellation fees</p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6 sm:mb-8">
+            {["Public page", "Private page", "Audience-specific page"].map((tab, idx) => (
+              <div
+                key={idx}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-medium cursor-pointer transition-colors ${
+                  activeTab === tab
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                }`}
+              >
+                {tab}
+              </div>
+            ))}
+          </div>
+          {activeTab === "Public page" && (
+            <div>
+              <div className="bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg max-w-5xl mx-auto mb-6 sm:mb-8">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <p className="text-base sm:text-lg font-bold text-white whitespace-nowrap">Free</p>
+                  <p className="text-sm sm:text-base text-gray-400 flex-1">
+                    Our free plan gives you access to 100 subscribers, 25 components, two team members, two metrics, email notifications, Slack notifications, Microsoft Teams notifications, and access to REST APIs.
+                  </p>
+                  <button className="bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded hover:bg-blue-700 transition whitespace-nowrap">
+                    Get started today
+                  </button>
+                </div>
+              </div>
+              <Pricing />
+            </div>
+          )}
+          {activeTab === "Private page" && <Private />}
+          {activeTab === "Audience-specific page" && <AudienceSpecificPage />}
+        </div>
+      </div>
 
       <Footer />
     </div>
+    </section>
+    </div>
   );
-};
-
-export default HomePage;
+}

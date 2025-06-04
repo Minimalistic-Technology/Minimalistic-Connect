@@ -28,7 +28,7 @@ export default function SignInPage() {
 
     try {
       // Login request
-      const loginResponse = await fetch('http://localhost:5000/api/v1/auth/login', {
+      const loginResponse = await fetch('http://localhost:5000/api/v1/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default function SignInPage() {
 
       // Fetch user details (assuming a new endpoint or database query is needed)
       // Since your backend doesn't return username/email in login, assume a new endpoint
-      const userResponse = await fetch('http://localhost:5000/api/v1/auth/me', {
+      const userResponse = await fetch('http://localhost:5000/api/v1/me', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${loginData.accessToken}`,

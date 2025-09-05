@@ -4,51 +4,51 @@ import React from 'react';
 
 const plans = [
   {
-    name: 'Hobby',
-    price: '$29',
+    name: 'Starter',
+    price: '$79',
     features: [
-      '250 subscribers',
       '5 team members',
+      '50 authenticated subscribers',
       '5 metrics',
       'Email notifications',
-      'Slack notifications',
-      'Microsoft Teams notifications',
-      'Basic customization',
-      'Custom domain',
-      'Access to REST APIs',
-    ],
-  },
-  {
-    name: 'Startup',
-    price: '$99',
-    features: [
-      '1,000 subscribers',
-      '10 team members',
-      '10 metrics',
-      'Email/SMS/webhook notifications',
-      'Slack notifications',
-      'Microsoft Teams notifications',
       'Custom CSS',
-      'Custom domain',
-      'Access to REST APIs',
+      'incident templates',
       'Team member SSO (with Atlassian Guard)',
+      'Email support',
+      
     ],
   },
   {
-    name: 'Business',
-    price: '$399',
+    name: 'Growth',
+    price: '$249',
     features: [
-      '5,000 subscribers',
-      '25 team members',
-      '25 metrics',
+      '15 team members',
+      '300 authenticated subscribers',
+      '15 metrics',
       'Email/SMS/webhook notifications',
-      'Slack notifications',
-      'Microsoft Teams notifications',
       'Custom CSS/HTML/JS',
-      'Custom domain',
-      'Access to REST APIs',
-      'Team member SSO (with Atlassian Guard)',
+      'incident templates',
       'Component subscriptions',
+      'IP allowlisting',
+      'Team member SSO (with Atlassian Guard)',
+      'Email support',
+    ],
+  },
+  {
+    name: 'Corporate',
+    price: '$599',
+    features: [
+      '35 team members',
+      '1,000 authenticated subscribers',
+      '35 metrics',
+      'Email/SMS/webhook notifications',
+      'Custom CSS/HTML/JS',
+      'Incident templates',
+      'Component subscriptions',
+      'IP allowlisting',
+      'Team member SSO (with Atlassian Guard)',
+      'Yearly purchase orders and invoicing available (for eligible purchases)',
+      'Email support',
       'Role-based access control',
     ],
   },
@@ -56,29 +56,29 @@ const plans = [
     name: 'Enterprise',
     price: '$1,499',
     features: [
-      '25,000 subscribers',
       '50 team members',
+      '5,000 authenticated subscribers',
       '50 metrics',
       'Email/SMS/webhook notifications',
-      'Slack notifications',
-      'Microsoft Teams notifications',
       'Custom CSS/HTML/JS',
-      'Custom domain',
-      'Access to REST APIs',
-      'Team member SSO (with Atlassian Guard)',
+      'Alerting integrations',
+      'Incident templates',
       'Component subscriptions',
-      'Verify purchase orders and invoicing available',
+      'IP allowlisting',
+      'Team member SSO (with Atlassian Guard)',
+      'Yearly purchase orders and invoicing available',
+      'Email support',
       'Role-based access control',
+      'Account represntative support',
     ],
   },
 ];
 
-const Pricing = () => {
+const Private = () => {
   return (
     <div className="bg-gray-900 text-gray-300 py-16 px-4">
-      <div className="max-w-7xl mx-auto text-center mb-12">
-        {/* <h1 className="text-3xl font-bold">Pricing that scales with you as you grow.</h1> */}
-        {/* <p className="mt-2 text-gray-400">Create your page in minutes. Launch it when you're ready.</p> */}
+      <div className="max-w-7xl mx-auto text-center mb-10">
+        <p className="mt-1 text-gray-400">Communicate privately with your employees about issues with internal tools and services.</p>
       </div>
 
       <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
@@ -104,4 +104,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Private;

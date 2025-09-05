@@ -9,7 +9,12 @@ import Image from 'next/image';
 const Enterprise = () => {
   return (
     <div className="bg-gray-900 text-gray-300">
-      <Header />
+      <Header
+        isLoggedIn={false}
+        username=""
+        email=""
+        handleLogout={() => {}}
+      />
 
       {/* Section - Integration Toolset */}
       <section className="py-16 px-4 md:px-20">

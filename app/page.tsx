@@ -1,297 +1,180 @@
 
-import Image from 'next/image';
-import React from 'react';
-import Header from './components/Header/page';
-import Footer from './components/Footer';
-import Pricing from './components/Pricing';
+import Button from "@/components/Button";
+import Card from "@/components/Card";
+import SectionHeading from "@/components/SectionHeading";
+import Reveal from "@/components/Reveal";
+import AnimatedFAQ from "@/components/AnimatedFAQ";
 
-const HomePage = () => {
-    
+const features = [
+  { 
+    t: "Real-time uptime and latency", 
+    d: "Track response times and availability across regions with beautiful visualizations.",
+    icon: "⚡" 
+  },
+  { 
+    t: "Errors and status codes, simplified", 
+    d: "Pinpoint failures with aggregated status views and instant notifications.", 
+    icon: "🎯"
+  },
+  { 
+    t: "Visual heatmaps and trends", 
+    d: "Spot patterns quickly with intuitive charts and predictive analytics.", 
+    icon: "📈"
+  },
+];
+
+const pricing = [
+  { 
+    name: "Free demo", 
+    price: "$0", 
+    period: "forever",
+    features: ["Basic monitoring", "5 endpoints", "12-hour retention"],
+    cta: "Try the demo" 
+  },
+  { 
+    name: "Pro", 
+    price: "$29", 
+    period: "per month",
+    features: ["Advanced monitoring", "Unlimited endpoints", "30-day retention", "Email alerts"],
+    cta: "Start Pro",
+    highlight: true
+  },
+  { 
+    name: "Enterprise", 
+    price: "Custom", 
+    period: "per month",
+    features: ["Everything in Pro", "Custom retention", "SLA guarantee", "Dedicated support"],
+    cta: "Contact sales" 
+  },
+];
+
+export default function Page() {
   return (
-    <div>
-      <Header />
-      {/* Hero Section */}
-      <section className="bg-gray-900 text-white py-16 px-8 md:px-20 flex items-center justify-center">
-        <div className="max-w-3xl text-center">
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-            Build trust with every <span className="text-blue-400">incident</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-400 mb-8">
-            Easily communicate real-time status to your users, just like DigitalOcean and Dropbox.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition">
-              Get it free
-            </button>
-            <button className="text-blue-400 font-medium hover:underline">
-              ➜ See how
-            </button>
-          </div>
-        </div>
-      </section>  
-
-
-      {/* Trusted By Section */}
-      <section className="bg-gray-900 text-white py-20 px-6 md:px-20">
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-items-center">
-          {/* DigitalOcean Card */}
-          <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg p-4 w-full max-w-md">
-            <Image
-              src="/images/digitalocean-no-drop-shadow.png"
-              alt="DigitalOcean status"
-              width={600}
-              height={400}
-              className="rounded"
-            />
-            <p className="text-center mt-4 text-gray-400 font-semibold">DigitalOcean</p>
-          </div>
-
-          {/* Dropbox Card */}
-          <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg p-4 w-full max-w-md">
-            <Image
-              src="/images/dropbox-nodropshadow.png"
-              alt="Dropbox status"
-              width={600}
-              height={400}
-              className="rounded"
-            />
-            <p className="text-center mt-4 text-gray-400 font-semibold">Dropbox</p>
-          </div>
-        </div>
-      </section>
-
-          <section className="bg-gray-900 text-white">
-      {/* Top shadow line */}
-      <div className="h-2 w-full shadow-md bg-gray-900" />
-
-      <div className="max-w-7xl mx-auto py-20 px-6 md:px-12 space-y-24">
-        {/* Block 1 */}
-        <div className="flex flex-col-reverse md:flex-row items-center gap-12">
-          {/* Text */}
-          <div className="md:w-1/2">
-            <h5 className="text-sm uppercase text-blue-300 font-semibold mb-2">
-              Support & IT Teams
-            </h5>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Eliminate duplicate support tickets & clunky email lists
-            </h2>
-            <p className="text-gray-300">
-              Halt the flood of support requests during an incident with proactive customer communication. Manage subscribers
-              directly in Statuspage and send consistent messages through the channels of your choice (email, text message,
-              in-app message, etc.)
-            </p>
-          </div>
-
-          {/* Image */}
-          <div className="md:w-1/2">
-            <Image
-              src="/images/Status Page Balloons@2x.png"
-              alt="Support feature"
-              width={500}
-              height={400}
-              className="mx-auto"
-            />
-          </div>
-        </div>
-
-        {/* Block 2 */}
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Image */}
-          <div className="md:w-1/2">
-            <Image
-              src="/images/components.png"
-              alt="Service status"
-              width={500}
-              height={400}
-              className="mx-auto"
-            />
-          </div>
-
-          {/* Text */}
-          <div className="md:w-1/2">
-            <h5 className="text-sm uppercase text-blue-300 font-semibold mb-2">
-              DevOps & IT Teams
-            </h5>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Display the status of each part of your service
-            </h2>
-            <p className="text-gray-300">
-              Control which components of your service you show on your page, and tap into 150+ third party components to display
-              the status of mission-critical tools your service relies on like Stripe, Mailgun, Shopify, and PagerDuty.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-        <section className="bg-gray-900 text-gray-300">
-      {/* Section 1 */}
-      <div className="bg-gray-900 text-gray-300 shadow-lg lg:shadow-lg ">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Text */}
-          <div className="lg:w-1/2">
-            <h2 className="text-3xl font-bold mb-4">
-              Statuspage is the communication piece of your incident management process
-            </h2>
-            <p className="text-gray-300 mb-4">
-              Keep users in the loop from ‘investigating’ through ‘resolved’.
-            </p>
-            <p className="text-gray-300 mb-4">
-              Statuspage integrates with your favorite monitoring, alerting, chat, and help desk tools for efficient response every time.
-            </p>
-            <a href="#" className="text-blue-600 font-medium hover:underline">
-              Learn more about integrations and automation →
-            </a>
-          </div>
-
-          {/* Image */}
-          <div className="lg:w-1/2 flex justify-center">
-            <Image
-              src="/images/communication-tools.png"
-              alt="Incident communication"
-              width={400}
-              height={300}
-              className="object-contain"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Section 2 */}
-      <div className="bg-gray-900 text-gray-300 shadow-lg lg:shadow-lg mt-6">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-          {/* Text */}
-          <div className="lg:w-1/2">
-            <h5 className="text-sm uppercase text-blue-500 font-semibold mb-2">
-              Incident Response Teams
-            </h5>
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Level-up your incident communication
-            </h2>
-            <p className="text-gray-300">
-              Take the hassle out of incident communication. Pre-written templates and tight integrations with the incident
-              management tools you already rely on enable you to quickly get the word out to users.
-            </p>
-          </div>
-
-          {/* Image */}
-          <div className="lg:w-1/2 flex justify-center">
-            <Image
-              src="/images/Status Page Light@2x.png"
-              alt="Incident response graphic"
-              width={450}
-              height={300}
-              className="object-contain"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
-        <section className="bg-gray-900 text-gray-300">
-      {/* Showcase reliability */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 flex flex-col-reverse lg:flex-row items-center gap-10">
-        {/* Text */}
-        <div className="lg:w-1/2">
-          <h5 className="text-sm uppercase text-blue-500 font-semibold mb-2">Marketing & Sales Teams</h5>
-          <h2 className="text-3xl font-bold mb-4">Showcase reliability</h2>
-          <p className="text-gray-400">
-            Turn your page into a sales and marketing tool with uptime Showcase, which lets you display historical uptime to current and prospective customers.
-          </p>
-        </div>
-
-        {/* Image */}
-        <div className="lg:w-1/2 flex justify-center">
-          <Image
-            src="/images/uptime.png"
-            alt="Uptime chart"
-            width={500}
-            height={300}
-            className="object-contain shadow-lg"
-          />
-        </div>
-      </div>
-
-      {/* Trusted by thousands */}
-      <div className="bg-gray-900 py-16 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-xl md:text-2xl font-semibold mb-10">Trusted by thousands of companies</h2>
-
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
-            {/* Video/quote block */}
-            <div className="relative bg-gray-500 text-gray-900 p-6 rounded-lg shadow-lg w-full lg:w-[500px] text-left">
-              <div className="mb-4">
-                <Image src="/images/DigiOcean.png" alt="Customer" width={450} height={250} className="rounded" />
-              </div>
-              <p className="text-sm text-blue-600 font-semibold">DigitalOcean</p>
-              <p className="text-base italic mt-1">"Proactive Statuspage notifications drive down ticket volume during an incident."</p>
-              <p className="text-xs mt-2 text-gray-600">Zachary Bouzan-Koufidis, Director of Customer Support</p>
-              <a href="https://www.youtube.com/watch?v=Zo068ILUO5s" className="text-blue-600 text-sm mt-2 inline-block">Watch the video →</a>
+    <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
+      {/* Hero */}
+      <Reveal>
+        <section className="pt-14 md:pt-24 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-gradientFrom to-brand-gradientTo opacity-10 rounded-3xl" />
+          <div className="relative max-w-3xl">
+              <div className="type-eyebrow">Minimalistic Connect</div>
+              <h1 className="type-h1 mt-3 bg-clip-text text-transparent bg-gradient-to-r from-brand-gradientFrom to-brand-gradientTo">
+                Connect and monitor with elegant simplicity
+              </h1>
+              <p className="type-body-lg mt-4 text-text-secondary">
+                Experience streamlined monitoring with our minimalist approach to insights.
+              </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button>Start Free Scan</Button>
+              <Button variant="secondary">See sample report</Button>
             </div>
           </div>
-
-          {/* Logos */}
-           <div className="mt-10 flex flex-wrap justify-center items-center gap-6 opacity-80">
-              {[
-                { src: '/images/squarespace-n700.svg', alt: 'Squarespace', width: 130, height: 50 },
-                { src: '/images/newrelic-n700.svg', alt: 'New Relic', width: 130, height: 50 },
-                { src: '/images/reddit-n700.svg', alt: 'Reddit', width: 130, height: 50 },
-                { src: '/images/twilio-n700.svg', alt: 'Twilio', width: 130, height: 50 },
-                { src: '/images/coinbase-n700.svg', alt: 'Coinbase', width: 130, height: 50 },
-                { src: '/images/shopify-n700.svg', alt: 'Shopify', width: 130, height: 50 },
-              ].map((logo, index) => (
-                <Image
-                  key={index}
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width || 100}
-                  height={logo.height || 40}
-                  className="object-contain"
-                />
-              ))}
-            </div>
-
-        </div>
-      </div>
-
-      {/* Pricing */}
-      <div className="bg-gray-900 py-20 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-2">Pricing that scales with you as you grow</h2>
-          <p className="text-gray-400 mb-10">No minimum contracts, no sign-up fees, no cancellation fees</p>
-
-          {/* Tabs */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
-            {['Public page', 'Private page', 'Audience-specific page'].map((tab, idx) => (
-              <div
-                key={idx}
-                className="border-b-2 border-gray-600 text-gray-400 px-4 py-2 cursor-pointer hover:text-white"
-              >
-                {tab}
+          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="col-span-1 sm:col-span-2 lg:col-span-3 rounded-2xl p-8 bg-gradient-to-r from-brand-gradientFrom to-brand-gradientTo text-white">
+              <p className="type-body-lg">“Trusted by teams who care about performance.”</p>
+              <div className="mt-4 flex flex-wrap gap-6 opacity-95" aria-label="Trusted logos">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="h-8 w-28 rounded-md bg-white/20" aria-hidden />
+                ))}
               </div>
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
+      {/* Features */}
+      <section id="features" className="py-20">
+        <SectionHeading
+          eyebrow="Features"
+          title="Everything you need to understand reliability"
+          subtitle="Clear metrics and helpful visuals out of the box"
+        />
+        <Reveal stagger delay={0.1}>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((f) => (
+              <Card key={f.t} className="p-6 group">
+                <div className="text-4xl mb-4 transform transition-transform group-hover:scale-110">{f.icon}</div>
+                <h3 className="type-h3 bg-clip-text text-transparent bg-gradient-to-r from-brand-gradientFrom to-brand-gradientTo">
+                  {f.t}
+                </h3>
+                <p className="type-body mt-2 text-text-secondary">{f.d}</p>
+              </Card>
             ))}
           </div>
+        </Reveal>
+      </section>
 
-          {/* Pricing Card */}
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-xl mx-auto">
-            <p className="text-lg font-bold mb-2">Free</p>
-            <p className="text-sm mb-4 text-gray-400">
-              Our free plan gives you access to 100 subscribers, 25 components, two team members, two metrics, email
-              notifications, Slack notifications, Microsoft Teams notifications, and access to REST APIs.
-            </p>
-            <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
-              Get started today
-            </button>
+      {/* How it works */}
+      <Reveal delay={0.2}>
+        <section id="how" className="py-16">
+          <SectionHeading eyebrow="How it works" title="From URL to insights in minutes" />
+          <ol className="mt-10 grid gap-6 sm:grid-cols-3 list-decimal list-inside">
+            {[
+              { t: "Add your URL or API", d: "Point us at your site or endpoint." },
+              { t: "We run checks and analyze", d: "Uptime, latency, status codes, and more." },
+              { t: "Review the report and metrics", d: "Share and iterate with your team." },
+            ].map((s, i) => (
+              <li key={i} className="card p-6">
+                <h3 className="type-h3">{s.t}</h3>
+                <p className="type-body mt-2 text-text-secondary">{s.d}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </Reveal>
+
+      {/* Pricing */}
+      <section id="pricing" className="py-16">
+        <SectionHeading eyebrow="Pricing" title="Simple, transparent plans" />
+        <Reveal stagger delay={0.2}>
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {pricing.map((p) => (
+              <Card 
+                key={p.name} 
+                className={`flex flex-col p-6 ${p.highlight ? 'ring-2 ring-brand-primary ring-offset-4 ring-offset-bg scale-105' : ''}`}
+              >
+                <h3 className="type-h3">{p.name}</h3>
+                <div className="mt-2 flex items-baseline gap-1">
+                  <span className="type-h2">{p.price}</span>
+                  <span className="type-caption">{p.period}</span>
+                </div>
+                <ul className="mt-6 space-y-3">
+                  {p.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="type-body">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6" />
+                <Button 
+                  className={`mt-auto ${p.highlight ? '' : 'variant-secondary'}`}
+                  variant={p.highlight ? 'primary' : 'secondary'}
+                >
+                  {p.cta}
+                </Button>
+              </Card>
+            ))}
           </div>
-        </div>
-      </div>
-    </section>
+        </Reveal>
+      </section>
 
-    <Pricing />
-    
-      <Footer/>
+      {/* FAQ */}
+      <section id="faq" className="py-16">
+        <SectionHeading eyebrow="FAQ" title="Questions, answered" />
+        <Reveal stagger delay={0.2}>
+          <div className="mt-10 grid gap-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <AnimatedFAQ
+                key={i}
+                question={`Placeholder question #${i + 1}`}
+                answer="Placeholder answer with helpful details."
+              />
+            ))}
+          </div>
+        </Reveal>
+      </section>
     </div>
   );
-};
-
-export default HomePage;
+}

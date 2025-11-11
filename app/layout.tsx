@@ -6,6 +6,9 @@ import HeaderNav from "@/components/HeaderNav";
 import Footer from "@/components/Footer";
 import ThemeToast from "@/components/ThemeToast";
 import Providers from "@/components/Providers"; // <-- 1. Import Providers
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
 
 import MainContent from "@/components/MainContent";
 

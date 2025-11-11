@@ -51,14 +51,15 @@ export default function HeaderNav() {
               { name: 'FAQ', url: '#faq', icon: HelpCircle },
             ]}
           />
-          <ThemeToggle />
           {isAuthenticated ? (
             <>
+              <ThemeToggle />
               <Link href="/dashboard" className="btn btn-subtle hidden sm:inline-flex no-underline">Dashboard</Link>
               <Button onClick={handleLogout} className="hidden sm:inline-flex">Logout</Button>
             </>
           ) : (
             <>
+              <ThemeToggle />
               <Link href="/auth/login" className="btn btn-subtle hidden sm:inline-flex no-underline">Sign in</Link>
               <Link href="/auth/signup" passHref>
                 <Button className="hidden sm:inline-flex">Start Free Scan</Button>
@@ -70,4 +71,3 @@ export default function HeaderNav() {
     </header>
   );
 }
-

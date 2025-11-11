@@ -4,26 +4,22 @@ import Button from '@/components/Button'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useMutation } from '@tanstack/react-query' // <-- Import
-import api from '@/lib/api' // <-- Import our Axios instance
-import { AxiosError } from 'axios' // <-- Import for error handling
+import { useMutation } from '@tanstack/react-query' 
+import api from '@/lib/api' 
+import { AxiosError } from 'axios'
 
-// Define the shape of the data the mutation will receive
 interface LoginData {
   email: string;
   password: string;
 }
 
-// Define the shape of the successful login response
 interface LoginResponse {
   tokens: {
     access: { token: string };
     refresh: { token: string };
   };
-  // Add other user data if your API returns it
 }
 
-// Define the shape of a backend error
 interface ApiError {
   message: string;
 }
@@ -31,46 +27,34 @@ interface ApiError {
 export default function LoginPage() {
   const router = useRouter();
 
-  // State for form fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  // State for frontend validation errors
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   
-  // === TanStack Query Mutation ===
   const { mutate: login, isPending, error } = useMutation<LoginResponse, AxiosError<ApiError>, LoginData>({
     mutationFn: (credentials: LoginData) => {
-      // This function handles the API call
-      // We pass 'data' from axios (the response body) to onSuccess
       return api.post('/api/auth/login', credentials).then(res => res.data);
     },
     onSuccess: (data) => {
-      // On success, 'data' is the response from our API
-      // **This is a simple example. Use secure storage (httpOnly cookies) for production.**
       localStorage.setItem('accessToken', data.tokens.access.token);
       localStorage.setItem('refreshToken', data.tokens.refresh.token);
         
-      // Redirect to homepage or dashboard
       router.push('/');
     },
     onError: (err) => {
       console.error('Login mutation error:', err);
     }
   });
-  // === End of Mutation ===
 
-  // Get the API error message from the mutation state
   const apiError = error ? error.response?.data?.message || "Invalid email or password." : null;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Clear errors
     setEmailError('');
     setPasswordError('');
 
-    // --- Frontend Validation ---
     let hasError = false;
     if (!email) {
       setEmailError('Email is required');
@@ -83,23 +67,20 @@ export default function LoginPage() {
       setPasswordError('Password is required');
       hasError = true;
     } else if (password.length < 8) {
-      // Note: Your backend probably doesn't have this check, but we keep frontend consistent
       setPasswordError('Password must be at least 8 characters');
       hasError = true;
     }
     if (hasError) {
       return;
     }
-    // --- End of Frontend Validation ---
 
-    // All good? Call the mutation!
     login({ email, password });
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
       <div className="absolute top-5 right-7">
-      <ThemeToggle/>
+      
       </div>
       <div className="mb-6 flex items-center gap-3">
         <div
@@ -110,6 +91,7 @@ export default function LoginPage() {
       </div>
       <div className="max-w-md w-full space-y-8 p-8 card">
         <div className="flex justify-end">
+          <ThemeToggle/>
         </div>
         <div>
           <h2 className="mt-6 text-3xl font-bold text-center text-foreground">
@@ -117,7 +99,7 @@ export default function LoginPage() {
           </h2>
           <p className="mt-2 text-sm text-center text-muted-foreground">
             Or{' '}
-            <Link href="/auth/signup" className="font-medium text-primary hover:text-primary/90">
+            <Link href="/auth/signup" className="font-medium text-blue-600 hover:text-blue-500">
               create a new account
             </Link>
           </p>
@@ -180,11 +162,10 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Display API Error from mutation */}
           {apiError && <p className="text-error text-sm text-center">{apiError}</p>}
 
           <div>
-            <Button type="submit" className="w-full justify-center" disabled={isPending}>
+            <Button type="submit" className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white" disabled={isPending}>
               {isPending ? 'Signing in...' : 'Sign in'}
             </Button>
           </div>

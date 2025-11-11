@@ -1,11 +1,5 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle'
-
-// export const metadata: Metadata = {
-//   title: 'Verify Email | Minimalistic Connect',
-//   description: 'Verify your email to continue',
-// }
 
 export default function VerifyPage() {
   return (

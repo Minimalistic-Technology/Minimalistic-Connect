@@ -4,18 +4,15 @@ import Button from '@/components/Button'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useMutation } from '@tanstack/react-query' // <-- Import
-import api from '@/lib/api' // <-- Import our Axios instance
-import { AxiosError } from 'axios' // <-- Import for error handling
-
-// Define the shape of the data the mutation will receive
+import { useMutation } from '@tanstack/react-query' 
+import api from '@/lib/api' 
+import { AxiosError } from 'axios'
 interface SignUpData {
   name: string;
   email: string;
   password: string;
 }
 
-// Define the shape of a backend error
 interface ApiError {
   message: string;
 }
@@ -30,43 +27,34 @@ export default function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [terms, setTerms] = useState(false);
   
-  // State for frontend validation errors
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [termsError, setTermsError] = useState('');
 
-  // === TanStack Query Mutation ===
   const { mutate: signUp, isPending, error } = useMutation({
     mutationFn: (newUserData: SignUpData) => {
-      // This function now handles the API call
       return api.post('/api/auth/signup', newUserData);
     },
     onSuccess: () => {
-      // On success, redirect to the verify page
       router.push('/auth/verify');
     },
     onError: (err) => {
-      // 'onError' is handled by 'error' state, but you can log it
       console.error('Signup mutation error:', err);
     }
   });
-  // === End of Mutation ===
 
-  // Get the API error message from the mutation state
   const apiError = error ? (error as AxiosError<ApiError>)?.response?.data?.message || "An unknown error occurred." : null;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Clear all errors
     setNameError('');
     setEmailError('');
     setPasswordError('');
     setConfirmPasswordError('');
     setTermsError('');
 
-    // --- Frontend Validation ---
     let hasError = false;
     if (!name) {
       setNameError('Full name is required');
@@ -97,9 +85,7 @@ export default function SignUpPage() {
     if (hasError) {
       return;
     }
-    // --- End of Frontend Validation ---
 
-    // All good? Call the mutation!
     signUp({ name, email, password });
   };
 
@@ -122,7 +108,7 @@ export default function SignUpPage() {
           </h2>
           <p className="mt-2 text-sm text-center text-muted-foreground">
             Already have an account?{' '}
-            <Link href="/auth/login" className="font-medium text-primary hover:text-primary/90">
+            <Link href="/auth/login" className="font-medium text-blue-600 hover:text-blue-500">
               Sign in
             </Link>
           </p>
@@ -222,7 +208,6 @@ export default function SignUpPage() {
             {termsError && <p className="text-error text-xs mt-1">{termsError}</p>}
           </div>
 
-          {/* Display API Error from mutation */}
           {apiError && <p className="text-error text-sm text-center">{apiError}</p>}
 
           <div>

@@ -1,14 +1,8 @@
 "use client"
-import { Metadata } from 'next'
 import Link from 'next/link'
 import Button from '@/components/Button'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useState } from 'react'
-
-// export const metadata: Metadata = {
-//   title: 'Forgot Password | Minimalistic Connect',
-//   description: 'Reset your password',
-// }
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -34,10 +28,8 @@ export default function ForgotPasswordPage() {
     }
 
     setIsSubmitting(true);
-    // Simulate a network request
     setTimeout(() => {
       setIsSubmitting(false);
-      // TODO: Handle successful password reset request
     }, 2000);
   };
 

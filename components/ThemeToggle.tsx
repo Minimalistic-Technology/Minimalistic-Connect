@@ -14,7 +14,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="btn btn-subtle"
+      className="btn btn-subtle border-black/15 dark:border-white/15 p-2 rounded-lg"
       aria-label="Toggle color theme"
     >
       {mode === 'dark' ? <FontAwesomeIcon icon={faSun} /> : <FontAwesomeIcon icon={faMoon} />}

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const plans = [
   {
@@ -74,6 +75,7 @@ const plans = [
 ];
 
 const Pricing = () => {
+  const router = useRouter();
   return (
     <div className="bg-gray-900 text-gray-300 py-16 px-4">
       <div className="max-w-7xl mx-auto text-center mb-12">
@@ -86,7 +88,7 @@ const Pricing = () => {
           <div key={idx} className="bg-gray-900 rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-2">{plan.name}</h2>
             <p className="text-3xl font-bold mb-4">{plan.price} <span className="text-sm font-normal">/month</span></p>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-6">
+            <button onClick={() => router.push('/signin')} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-6">
               Get started today
             </button>
             <ul className="text-sm space-y-2">

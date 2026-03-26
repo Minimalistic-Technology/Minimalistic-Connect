@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import SectionHeading from "@/components/SectionHeading";
@@ -64,7 +64,7 @@ export default function Page() {
                 Experience streamlined monitoring with our minimalist approach to insights.
               </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button>Start Free Scan</Button>
+              <Link href="/signin"><Button>Start Free Scan</Button></Link>
               <Button variant="secondary">See sample report</Button>
             </div>
           </div>
@@ -148,12 +148,14 @@ export default function Page() {
                   ))}
                 </ul>
                 <div className="mt-6" />
-                <Button 
-                  className={`mt-auto ${p.highlight ? '' : 'variant-secondary'}`}
-                  variant={p.highlight ? 'primary' : 'secondary'}
-                >
-                  {p.cta}
-                </Button>
+                <Link href="/signin" className="mt-auto block">
+                  <Button 
+                    className={`w-full ${p.highlight ? '' : 'variant-secondary'}`}
+                    variant={p.highlight ? 'primary' : 'secondary'}
+                  >
+                    {p.cta}
+                  </Button>
+                </Link>
               </Card>
             ))}
           </div>

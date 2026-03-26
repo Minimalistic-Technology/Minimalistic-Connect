@@ -46,9 +46,9 @@ export default function Header() {
 
         {/* CTA and Icons */}
         <div className="flex items-center gap-6">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full text-sm">
+          <Link href="/signin" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold flex items-center justify-center px-6 py-2 rounded-full text-sm">
             Get it Free
-          </button>
+          </Link>
           <button className="text-white hover:text-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,9 +65,9 @@ export default function Header() {
               />
             </svg>
           </button>
-          <a href="/signin" className="text-white font-semibold text-sm">
+          <Link href="/signin" className="text-white font-semibold text-sm">
             Sign in
-          </a>
+          </Link>
         </div>
       </header>
     </div>
